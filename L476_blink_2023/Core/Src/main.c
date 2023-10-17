@@ -19,6 +19,8 @@ volatile int LED_ON=0;
 volatile int Old_State_Blue_Button=0;
 volatile int Actual_State_Blue_Button=0;
 volatile int Sleep_State=0;
+volatile int exp1=0;
+volatile int exp2=0;
 int main(void) {
 
 	/*clock domains activation*/

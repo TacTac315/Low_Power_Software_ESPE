@@ -27,7 +27,7 @@
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
+void SystemClock_Config_exp1(void)
 {
   LL_FLASH_SetLatency(LL_FLASH_LATENCY_4);
   while(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_4)
@@ -66,6 +66,48 @@ void SystemClock_Config(void)
 
   }
   LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_PLL);
+
+   /* Wait till System clock is ready */
+  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
+  {
+
+  }
+  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+  LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
+
+  //update global variable SystemCoreClock --> give access to CPU clock frequency.
+  LL_SetSystemCoreClock(80000000);
+}
+void SystemClock_Config_exp2(void)
+{
+  LL_FLASH_SetLatency(LL_FLASH_LATENCY_4);
+  while(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_4)
+  {
+  }
+  LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE1);
+  LL_RCC_LSI_Enable();
+
+   /* Wait till LSI is ready */
+  while(LL_RCC_LSI_IsReady() != 1)
+  {
+
+  }
+  LL_RCC_MSI_Enable();
+
+   /* Wait till MSI is ready */
+  while(LL_RCC_MSI_IsReady() != 1)
+  {
+
+  }
+  LL_RCC_MSI_EnableRangeSelection();
+  LL_RCC_MSI_SetRange(LL_RCC_MSIRANGE_9);
+  LL_RCC_MSI_SetCalibTrimming(0);
+  LL_PWR_EnableBkUpAccess();
+  LL_RCC_ForceBackupDomainReset();
+  LL_RCC_ReleaseBackupDomainReset();
+  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
+  LL_RCC_EnableRTC();
 
    /* Wait till System clock is ready */
   while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)

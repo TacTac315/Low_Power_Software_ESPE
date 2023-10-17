@@ -60,8 +60,8 @@ all: main-build
 main-build: L476_blink_2023_IT.elf secondary-outputs
 
 # Tool invocations
-L476_blink_2023_IT.elf L476_blink_2023_IT.map: $(OBJS) $(USER_OBJS) U:\L476_blink_2023\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "L476_blink_2023_IT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"U:\L476_blink_2023\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="L476_blink_2023_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+L476_blink_2023_IT.elf L476_blink_2023_IT.map: $(OBJS) $(USER_OBJS) U:\TP\ LOW\ POWER\Low_Power_Software_ESPE\L476_blink_2023\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "L476_blink_2023_IT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"U:\TP LOW POWER\Low_Power_Software_ESPE\L476_blink_2023\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="L476_blink_2023_IT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

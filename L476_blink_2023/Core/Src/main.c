@@ -19,7 +19,7 @@ volatile int LED_ON=0;
 volatile int Old_State_Blue_Button=0;
 volatile int Actual_State_Blue_Button=0;
 volatile int Sleep_State=0;
-volatile int exp=0;
+volatile int expe=2;
 int main(void) {
 	/*clock domains activation*/
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
@@ -28,12 +28,14 @@ int main(void) {
 	NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
 	/* Configure the system clock */
-	if (exp==1)
-	{SystemClock_Config_exp1();
+	if (expe==1)
+	{
+	 SystemClock_Config_exp1();
 	 LL_LPM_EnableSleep();
 	}
-	if(exp==2){
-		SystemClock_Config_exp2();
+	if (expe==2)
+	{
+	SystemClock_Config_exp2();
 	}
 	/* Initialize all configured peripherals */
 	//GPIO configuration
@@ -57,9 +59,13 @@ int main(void) {
 // systick interrupt handler
 void SysTick_Handler(void) {
 	millis+=10;
+	if (expe==2)
+	{
+		GPIOC->ODR^=(1<<10);
+	}
 	if(BLUE_BUTTON())
 		Sleep_State=1;
-		MSI_State=
+		//MSI_State=0;
 	//to be defined if systick interrupt is enabled.
 	if (LED_ON==1 && millis>=T_LED_ON)
 	{

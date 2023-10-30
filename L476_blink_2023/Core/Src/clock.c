@@ -78,6 +78,7 @@ void SystemClock_Config_exp1(void)
 
   //update global variable SystemCoreClock --> give access to CPU clock frequency.
   LL_SetSystemCoreClock(80000000);
+
 }
 void SystemClock_Config_exp2(void)
 {
@@ -114,6 +115,6 @@ void SystemClock_Config_exp2(void)
   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
 
   //update global variable SystemCoreClock --> give access to CPU clock frequency.
-  LL_SetSystemCoreClock(80000000);
+  LL_SetSystemCoreClock(24000000);
 }
 

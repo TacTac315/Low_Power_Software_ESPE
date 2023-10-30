@@ -27,3 +27,4 @@
 ../Core/Src/clock.c:30:6:SystemClock_Config_exp1	8	static
 ../Core/Src/clock.c:83:6:SystemClock_Config_exp2	8	static
 ../Core/Src/clock.c:120:6:SystemClock_Config_exp2_blue	8	static
+../Core/Src/clock.c:157:6:SystemClock_Config_exp3	8	static

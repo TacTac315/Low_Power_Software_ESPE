@@ -19,7 +19,7 @@ volatile int LED_ON=0;
 volatile int Old_State_Blue_Button=0;
 volatile int Actual_State_Blue_Button=0;
 volatile int Sleep_State=0;
-volatile int expe=2;
+volatile int expe=3;
 int main(void) {
 	/*clock domains activation*/
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
@@ -37,6 +37,11 @@ int main(void) {
 	{
 	SystemClock_Config_exp2();
 	//SystemClock_Config_exp2_blue();
+	}
+	if(expe==3)
+	{
+	 SystemClock_Config_exp3();
+	 LL_LPM_EnableSleep();
 	}
 	/* Initialize all configured peripherals */
 	//GPIO configuration
@@ -63,7 +68,39 @@ void SysTick_Handler(void) {
 	if (expe==2)
 	{
 		GPIOC->ODR^=(1<<10);
+
+		if (LED_ON==1 && millis>=100)
+		{
+		LED_GREEN(0);
+		LED_ON=0;
+		millis=0;
+		}
+		else if(LED_ON ==0 && millis>=1900)
+		{
+		LED_GREEN(1);
+		LED_ON=1;
+		millis=0;
+		}
 	}
+	if (expe==3)
+		{
+			GPIOC->ODR^=(1<<10);
+			if(BLUE_BUTTON())
+					Sleep_State=1;
+			if (LED_ON==1 && millis>=150)
+			{
+			LED_GREEN(0);
+			LED_ON=0;
+			millis=0;
+			}
+			else if(LED_ON ==0 && millis>=1850)
+			{
+			LED_GREEN(1);
+			LED_ON=1;
+			millis=0;
+			}
+		}
+	if(expe==1){
 	if(BLUE_BUTTON())
 		Sleep_State=1;
 		//MSI_State=0;
@@ -79,6 +116,7 @@ void SysTick_Handler(void) {
 	LED_GREEN(1);
 	LED_ON=1;
 	millis=0;
+	}
 	}
 }
 

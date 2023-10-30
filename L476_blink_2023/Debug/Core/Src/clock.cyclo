@@ -27,3 +27,4 @@ stm32l4xx_ll_system.h:1428:26:LL_FLASH_GetLatency	1
 clock.c:30:6:SystemClock_Config_exp1	6
 clock.c:83:6:SystemClock_Config_exp2	4
 clock.c:120:6:SystemClock_Config_exp2_blue	4
+clock.c:157:6:SystemClock_Config_exp3	4

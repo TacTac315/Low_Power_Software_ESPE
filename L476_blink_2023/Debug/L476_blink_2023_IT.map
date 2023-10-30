@@ -50,6 +50,12 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./Core/Src/clock.o
  .data          0x0000000000000000        0x0 ./Core/Src/clock.o
  .bss           0x0000000000000000        0x0 ./Core/Src/clock.o
+ .text.LL_RCC_LSE_Enable
+                0x0000000000000000       0x24 ./Core/Src/clock.o
+ .text.LL_RCC_LSE_IsReady
+                0x0000000000000000       0x28 ./Core/Src/clock.o
+ .text.SystemClock_Config_exp2_blue
+                0x0000000000000000       0x80 ./Core/Src/clock.o
  .group         0x0000000000000000        0xc ./Core/Src/gpio.o
  .group         0x0000000000000000        0xc ./Core/Src/gpio.o
  .group         0x0000000000000000        0xc ./Core/Src/gpio.o
@@ -1381,14 +1387,14 @@ LOAD c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
 LOAD c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a
 LOAD c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7e-m+fp/hard\libgcc.a
 
-.debug_info     0x0000000000000000     0x2de1
- .debug_info    0x0000000000000000      0x87c ./Core/Src/clock.o
- .debug_info    0x000000000000087c      0x62c ./Core/Src/gpio.o
- .debug_info    0x0000000000000ea8      0xb5b ./Core/Src/main.o
- .debug_info    0x0000000000001a03      0x144 ./Core/Src/stm32l4xx_it.o
- .debug_info    0x0000000000001b47      0x5e1 ./Core/Src/system_stm32l4xx.o
- .debug_info    0x0000000000002128       0x22 ./Core/Startup/startup_stm32l476rgtx.o
- .debug_info    0x000000000000214a      0xc97 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
+.debug_info     0x0000000000000000     0x2e30
+ .debug_info    0x0000000000000000      0x8cb ./Core/Src/clock.o
+ .debug_info    0x00000000000008cb      0x62c ./Core/Src/gpio.o
+ .debug_info    0x0000000000000ef7      0xb5b ./Core/Src/main.o
+ .debug_info    0x0000000000001a52      0x144 ./Core/Src/stm32l4xx_it.o
+ .debug_info    0x0000000000001b96      0x5e1 ./Core/Src/system_stm32l4xx.o
+ .debug_info    0x0000000000002177       0x22 ./Core/Startup/startup_stm32l476rgtx.o
+ .debug_info    0x0000000000002199      0xc97 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
 .debug_abbrev   0x0000000000000000      0x97c
  .debug_abbrev  0x0000000000000000      0x13b ./Core/Src/clock.o
@@ -1399,30 +1405,30 @@ LOAD c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_abbrev  0x0000000000000713       0x12 ./Core/Startup/startup_stm32l476rgtx.o
  .debug_abbrev  0x0000000000000725      0x257 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
-.debug_aranges  0x0000000000000000      0x380
+.debug_aranges  0x0000000000000000      0x398
  .debug_aranges
-                0x0000000000000000       0xe8 ./Core/Src/clock.o
+                0x0000000000000000      0x100 ./Core/Src/clock.o
  .debug_aranges
-                0x00000000000000e8       0x60 ./Core/Src/gpio.o
+                0x0000000000000100       0x60 ./Core/Src/gpio.o
  .debug_aranges
-                0x0000000000000148       0x58 ./Core/Src/main.o
+                0x0000000000000160       0x58 ./Core/Src/main.o
  .debug_aranges
-                0x00000000000001a0       0x58 ./Core/Src/stm32l4xx_it.o
+                0x00000000000001b8       0x58 ./Core/Src/stm32l4xx_it.o
  .debug_aranges
-                0x00000000000001f8       0x28 ./Core/Src/system_stm32l4xx.o
+                0x0000000000000210       0x28 ./Core/Src/system_stm32l4xx.o
  .debug_aranges
-                0x0000000000000220       0x28 ./Core/Startup/startup_stm32l476rgtx.o
+                0x0000000000000238       0x28 ./Core/Startup/startup_stm32l476rgtx.o
  .debug_aranges
-                0x0000000000000248      0x138 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
+                0x0000000000000260      0x138 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
-.debug_ranges   0x0000000000000000      0x318
- .debug_ranges  0x0000000000000000       0xd8 ./Core/Src/clock.o
- .debug_ranges  0x00000000000000d8       0x50 ./Core/Src/gpio.o
- .debug_ranges  0x0000000000000128       0x48 ./Core/Src/main.o
- .debug_ranges  0x0000000000000170       0x48 ./Core/Src/stm32l4xx_it.o
- .debug_ranges  0x00000000000001b8       0x18 ./Core/Src/system_stm32l4xx.o
- .debug_ranges  0x00000000000001d0       0x20 ./Core/Startup/startup_stm32l476rgtx.o
- .debug_ranges  0x00000000000001f0      0x128 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
+.debug_ranges   0x0000000000000000      0x330
+ .debug_ranges  0x0000000000000000       0xf0 ./Core/Src/clock.o
+ .debug_ranges  0x00000000000000f0       0x50 ./Core/Src/gpio.o
+ .debug_ranges  0x0000000000000140       0x48 ./Core/Src/main.o
+ .debug_ranges  0x0000000000000188       0x48 ./Core/Src/stm32l4xx_it.o
+ .debug_ranges  0x00000000000001d0       0x18 ./Core/Src/system_stm32l4xx.o
+ .debug_ranges  0x00000000000001e8       0x20 ./Core/Startup/startup_stm32l476rgtx.o
+ .debug_ranges  0x0000000000000208      0x128 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
 .debug_macro    0x0000000000000000    0x1e79f
  .debug_macro   0x0000000000000000      0x10e ./Core/Src/clock.o
@@ -1461,29 +1467,29 @@ LOAD c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .debug_macro   0x000000000001e55f      0x19f ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
  .debug_macro   0x000000000001e6fe       0xa1 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
-.debug_line     0x0000000000000000     0x2cd5
- .debug_line    0x0000000000000000      0x876 ./Core/Src/clock.o
- .debug_line    0x0000000000000876      0x5f8 ./Core/Src/gpio.o
- .debug_line    0x0000000000000e6e      0x72e ./Core/Src/main.o
- .debug_line    0x000000000000159c      0x648 ./Core/Src/stm32l4xx_it.o
- .debug_line    0x0000000000001be4      0x538 ./Core/Src/system_stm32l4xx.o
- .debug_line    0x000000000000211c       0x87 ./Core/Startup/startup_stm32l476rgtx.o
- .debug_line    0x00000000000021a3      0xb32 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
+.debug_line     0x0000000000000000     0x2d78
+ .debug_line    0x0000000000000000      0x919 ./Core/Src/clock.o
+ .debug_line    0x0000000000000919      0x5f8 ./Core/Src/gpio.o
+ .debug_line    0x0000000000000f11      0x72e ./Core/Src/main.o
+ .debug_line    0x000000000000163f      0x648 ./Core/Src/stm32l4xx_it.o
+ .debug_line    0x0000000000001c87      0x538 ./Core/Src/system_stm32l4xx.o
+ .debug_line    0x00000000000021bf       0x87 ./Core/Startup/startup_stm32l476rgtx.o
+ .debug_line    0x0000000000002246      0xb32 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
-.debug_str      0x0000000000000000    0xab84a
- .debug_str     0x0000000000000000    0xa746c ./Core/Src/clock.o
-                                      0xa7632 (size before relaxing)
- .debug_str     0x00000000000a746c      0x96f ./Core/Src/gpio.o
+.debug_str      0x0000000000000000    0xab88c
+ .debug_str     0x0000000000000000    0xa74ae ./Core/Src/clock.o
+                                      0xa7674 (size before relaxing)
+ .debug_str     0x00000000000a74ae      0x96f ./Core/Src/gpio.o
                                       0x9f9e9 (size before relaxing)
- .debug_str     0x00000000000a7ddb     0x2afe ./Core/Src/main.o
+ .debug_str     0x00000000000a7e1d     0x2afe ./Core/Src/main.o
                                       0xaa701 (size before relaxing)
- .debug_str     0x00000000000aa8d9       0xad ./Core/Src/stm32l4xx_it.o
+ .debug_str     0x00000000000aa91b       0xad ./Core/Src/stm32l4xx_it.o
                                       0xa9ec6 (size before relaxing)
- .debug_str     0x00000000000aa986       0xa9 ./Core/Src/system_stm32l4xx.o
+ .debug_str     0x00000000000aa9c8       0xa9 ./Core/Src/system_stm32l4xx.o
                                       0x9e605 (size before relaxing)
- .debug_str     0x00000000000aaa2f       0x36 ./Core/Startup/startup_stm32l476rgtx.o
+ .debug_str     0x00000000000aaa71       0x36 ./Core/Startup/startup_stm32l476rgtx.o
                                          0x74 (size before relaxing)
- .debug_str     0x00000000000aaa65      0xde5 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
+ .debug_str     0x00000000000aaaa7      0xde5 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
                                       0xa52bd (size before relaxing)
 
 .comment        0x0000000000000000       0x50
@@ -1495,11 +1501,11 @@ LOAD c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.ext
  .comment       0x0000000000000050       0x51 ./Core/Src/system_stm32l4xx.o
  .comment       0x0000000000000050       0x51 ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
 
-.debug_frame    0x0000000000000000      0xc90
- .debug_frame   0x0000000000000000      0x398 ./Core/Src/clock.o
- .debug_frame   0x0000000000000398      0x15c ./Core/Src/gpio.o
- .debug_frame   0x00000000000004f4      0x12c ./Core/Src/main.o
- .debug_frame   0x0000000000000620       0xf0 ./Core/Src/stm32l4xx_it.o
- .debug_frame   0x0000000000000710       0x58 ./Core/Src/system_stm32l4xx.o
- .debug_frame   0x0000000000000768      0x4fc ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
- .debug_frame   0x0000000000000c64       0x2c c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-init.o)
+.debug_frame    0x0000000000000000      0xcec
+ .debug_frame   0x0000000000000000      0x3f4 ./Core/Src/clock.o
+ .debug_frame   0x00000000000003f4      0x15c ./Core/Src/gpio.o
+ .debug_frame   0x0000000000000550      0x12c ./Core/Src/main.o
+ .debug_frame   0x000000000000067c       0xf0 ./Core/Src/stm32l4xx_it.o
+ .debug_frame   0x000000000000076c       0x58 ./Core/Src/system_stm32l4xx.o
+ .debug_frame   0x00000000000007c4      0x4fc ./Drivers/STM32L4xx_HAL_Driver/Src/stm32l4xx_ll_utils.o
+ .debug_frame   0x0000000000000cc0       0x2c c:/st/stm32cubeide_1.12.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.200.202301161003/tools/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(lib_a-init.o)

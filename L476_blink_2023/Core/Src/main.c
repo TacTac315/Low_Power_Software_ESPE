@@ -36,6 +36,7 @@ int main(void) {
 	if (expe==2)
 	{
 	SystemClock_Config_exp2();
+	//SystemClock_Config_exp2_blue();
 	}
 	/* Initialize all configured peripherals */
 	//GPIO configuration

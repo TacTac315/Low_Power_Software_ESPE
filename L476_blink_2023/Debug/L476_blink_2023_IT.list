@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020008  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00002de1  00000000  00000000  00020038  2**0
+ 12 .debug_info   00002e30  00000000  00000000  00020038  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000097c  00000000  00000000  00022e19  2**0
+ 13 .debug_abbrev 0000097c  00000000  00000000  00022e68  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000380  00000000  00000000  00023798  2**3
+ 14 .debug_aranges 00000398  00000000  00000000  000237e8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000318  00000000  00000000  00023b18  2**3
+ 15 .debug_ranges 00000330  00000000  00000000  00023b80  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001e79f  00000000  00000000  00023e30  2**0
+ 16 .debug_macro  0001e79f  00000000  00000000  00023eb0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00002cd5  00000000  00000000  000425cf  2**0
+ 17 .debug_line   00002d78  00000000  00000000  0004264f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000ab84a  00000000  00000000  000452a4  2**0
+ 18 .debug_str    000ab88c  00000000  00000000  000453c7  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000f0aee  2**0
+ 19 .comment      00000050  00000000  00000000  000f0c53  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000c90  00000000  00000000  000f0b40  2**2
+ 20 .debug_frame  00000cec  00000000  00000000  000f0ca4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1531,6 +1531,7 @@ int main(void) {
 	{
 	SystemClock_Config_exp2();
  80009fc:	f7ff fe06 	bl	800060c <SystemClock_Config_exp2>
+	//SystemClock_Config_exp2_blue();
 	}
 	/* Initialize all configured peripherals */
 	//GPIO configuration

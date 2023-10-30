@@ -1,3 +1,5 @@
+stm32l4xx_ll_rcc.h:2270:22:LL_RCC_LSE_Enable	1
+stm32l4xx_ll_rcc.h:2362:26:LL_RCC_LSE_IsReady	2
 stm32l4xx_ll_rcc.h:2424:22:LL_RCC_LSI_Enable	1
 stm32l4xx_ll_rcc.h:2444:26:LL_RCC_LSI_IsReady	2
 stm32l4xx_ll_rcc.h:2489:22:LL_RCC_MSI_Enable	1
@@ -24,3 +26,4 @@ stm32l4xx_ll_system.h:1400:22:LL_FLASH_SetLatency	1
 stm32l4xx_ll_system.h:1428:26:LL_FLASH_GetLatency	1
 clock.c:30:6:SystemClock_Config_exp1	6
 clock.c:83:6:SystemClock_Config_exp2	4
+clock.c:120:6:SystemClock_Config_exp2_blue	4

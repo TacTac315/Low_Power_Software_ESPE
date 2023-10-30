@@ -1,3 +1,5 @@
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:2270:22:LL_RCC_LSE_Enable	4	static
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:2362:26:LL_RCC_LSE_IsReady	4	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:2424:22:LL_RCC_LSI_Enable	4	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:2444:26:LL_RCC_LSI_IsReady	4	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rcc.h:2489:22:LL_RCC_MSI_Enable	4	static
@@ -24,3 +26,4 @@
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_system.h:1428:26:LL_FLASH_GetLatency	4	static
 ../Core/Src/clock.c:30:6:SystemClock_Config_exp1	8	static
 ../Core/Src/clock.c:83:6:SystemClock_Config_exp2	8	static
+../Core/Src/clock.c:120:6:SystemClock_Config_exp2_blue	8	static

@@ -15,11 +15,11 @@
 #define T_LED_ON 50 //ms
 /* Private function prototypes -----------------------------------------------*/
 volatile uint32_t millis = 0;
-volatile int LED_ON=0;
-volatile int Old_State_Blue_Button=0;
-volatile int Actual_State_Blue_Button=0;
-volatile int Sleep_State=0;
-volatile int expe=3;
+volatile int LED_ON = 0;
+volatile int Old_State_Blue_Button = 0;
+volatile int Actual_State_Blue_Button = 0;
+volatile int Sleep_State = 0;
+volatile int expe = 5;
 int main(void) {
 	/*clock domains activation*/
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
@@ -28,20 +28,25 @@ int main(void) {
 	NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
 	/* Configure the system clock */
-	if (expe==1)
-	{
-	 SystemClock_Config_exp1();
-	 LL_LPM_EnableSleep();
+	if (expe == 1) {
+		SystemClock_Config_exp1();
+		LL_LPM_EnableSleep();
 	}
-	if (expe==2)
-	{
-	SystemClock_Config_exp2();
-	//SystemClock_Config_exp2_blue();
+	if (expe == 2) {
+		SystemClock_Config_exp2();
+		//SystemClock_Config_exp2_blue();
 	}
-	if(expe==3)
-	{
-	 SystemClock_Config_exp3();
-	 LL_LPM_EnableSleep();
+	if (expe == 3) {
+		SystemClock_Config_exp3();
+		LL_LPM_EnableSleep();
+	}
+	if (expe == 5) {
+		SystemClock_Config_exp5();
+		RTC_Init();
+		RCC->CR |= RCC_CR_MSIPLLEN;
+		LL_LPM_EnableSleep();
+		Sleep_State = 1;
+		//RTC_wakeup_init_from_stop(7);
 	}
 	/* Initialize all configured peripherals */
 	//GPIO configuration
@@ -56,7 +61,7 @@ int main(void) {
 	//Enable the simple sleep mode
 
 	while (1) {
-		if(Sleep_State==1)
+		if (Sleep_State == 1)
 			__WFI();
 
 	}
@@ -64,59 +69,63 @@ int main(void) {
 
 // systick interrupt handler
 void SysTick_Handler(void) {
-	millis+=10;
-	if (expe==2)
-	{
-		GPIOC->ODR^=(1<<10);
+	millis += 10;
+	if (expe == 2) {
+		GPIOC->ODR ^= (1 << 10);
 
-		if (LED_ON==1 && millis>=100)
-		{
-		LED_GREEN(0);
-		LED_ON=0;
-		millis=0;
-		}
-		else if(LED_ON ==0 && millis>=1900)
-		{
-		LED_GREEN(1);
-		LED_ON=1;
-		millis=0;
-		}
-	}
-	if (expe==3)
-		{
-			GPIOC->ODR^=(1<<10);
-			if(BLUE_BUTTON())
-					Sleep_State=1;
-			if (LED_ON==1 && millis>=150)
-			{
+		if (LED_ON == 1 && millis >= 100) {
 			LED_GREEN(0);
-			LED_ON=0;
-			millis=0;
-			}
-			else if(LED_ON ==0 && millis>=1850)
-			{
+			LED_ON = 0;
+			millis = 0;
+		} else if (LED_ON == 0 && millis >= 1900) {
 			LED_GREEN(1);
-			LED_ON=1;
-			millis=0;
-			}
+			LED_ON = 1;
+			millis = 0;
 		}
-	if(expe==1){
-	if(BLUE_BUTTON())
-		Sleep_State=1;
+	}
+	if (expe == 3) {
+		GPIOC->ODR ^= (1 << 10);
+		if (BLUE_BUTTON())
+			Sleep_State = 1;
+		if (LED_ON == 1 && millis >= 150) {
+			LED_GREEN(0);
+			LED_ON = 0;
+			millis = 0;
+		} else if (LED_ON == 0 && millis >= 1850) {
+			LED_GREEN(1);
+			LED_ON = 1;
+			millis = 0;
+		}
+	}
+	if (expe == 5) {
+		GPIOC->ODR ^= (1 << 10);
+		if (BLUE_BUTTON())
+		{
+		}
+		if (LED_ON == 1 && millis >= 250) {
+			LED_GREEN(0);
+			LED_ON = 0;
+			millis = 0;
+		} else if (LED_ON == 0 && millis >= 1750) {
+			LED_GREEN(1);
+			LED_ON = 1;
+			millis = 0;
+		}
+	}
+	if (expe == 1) {
+		if (BLUE_BUTTON())
+			Sleep_State = 1;
 		//MSI_State=0;
-	//to be defined if systick interrupt is enabled.
-	if (LED_ON==1 && millis>=T_LED_ON)
-	{
-	LED_GREEN(0);
-	LED_ON=0;
-	millis=0;
-	}
-	else if(LED_ON ==0 && millis>=T_LED_OFF)
-	{
-	LED_GREEN(1);
-	LED_ON=1;
-	millis=0;
-	}
+		//to be defined if systick interrupt is enabled.
+		if (LED_ON == 1 && millis >= T_LED_ON) {
+			LED_GREEN(0);
+			LED_ON = 0;
+			millis = 0;
+		} else if (LED_ON == 0 && millis >= T_LED_OFF) {
+			LED_GREEN(1);
+			LED_ON = 1;
+			millis = 0;
+		}
 	}
 }
 

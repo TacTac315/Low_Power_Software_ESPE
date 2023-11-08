@@ -22,9 +22,15 @@ stm32l4xx_ll_rcc.h:3800:22:LL_RCC_PLL_ConfigDomain_SYS	1
 stm32l4xx_ll_rcc.h:4178:22:LL_RCC_PLL_EnableDomain_SYS	1
 stm32l4xx_ll_pwr.h:344:22:LL_PWR_SetRegulVoltageScaling	1
 stm32l4xx_ll_pwr.h:398:22:LL_PWR_EnableBkUpAccess	1
+stm32l4xx_ll_rtc.h:1310:22:LL_RTC_SetAsynchPrescaler	1
+stm32l4xx_ll_rtc.h:1322:22:LL_RTC_SetSynchPrescaler	1
+stm32l4xx_ll_rtc.h:1355:22:LL_RTC_EnableWriteProtection	1
+stm32l4xx_ll_rtc.h:1366:22:LL_RTC_DisableWriteProtection	1
 stm32l4xx_ll_system.h:1400:22:LL_FLASH_SetLatency	1
 stm32l4xx_ll_system.h:1428:26:LL_FLASH_GetLatency	1
 clock.c:30:6:SystemClock_Config_exp1	6
 clock.c:83:6:SystemClock_Config_exp2	4
 clock.c:120:6:SystemClock_Config_exp2_blue	4
 clock.c:157:6:SystemClock_Config_exp3	4
+clock.c:194:6:RTC_Init	2
+clock.c:215:6:SystemClock_Config_exp5	4

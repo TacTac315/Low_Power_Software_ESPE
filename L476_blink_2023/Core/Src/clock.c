@@ -51,11 +51,11 @@ void SystemClock_Config_exp1(void)
   LL_RCC_MSI_EnableRangeSelection();
   LL_RCC_MSI_SetRange(LL_RCC_MSIRANGE_6);
   LL_RCC_MSI_SetCalibTrimming(0);
-  LL_PWR_EnableBkUpAccess();
-  LL_RCC_ForceBackupDomainReset();
-  LL_RCC_ReleaseBackupDomainReset();
-  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
-  LL_RCC_EnableRTC();
+//  LL_PWR_EnableBkUpAccess();
+//  LL_RCC_ForceBackupDomainReset();
+//  LL_RCC_ReleaseBackupDomainReset();
+//  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
+//  LL_RCC_EnableRTC();
   LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_MSI, LL_RCC_PLLM_DIV_1, 40, LL_RCC_PLLR_DIV_2);
   LL_RCC_PLL_EnableDomain_SYS();
   LL_RCC_PLL_Enable();
@@ -194,23 +194,24 @@ void SystemClock_Config_exp3(void)
 void RTC_Init(void)
 {
   // Enable LSE oscillator
+
+	 // Reset backup domain
+	  LL_RCC_ForceBackupDomainReset();
+	  LL_RCC_ReleaseBackupDomainReset();
   LL_RCC_LSE_Enable();
   while (LL_RCC_LSE_IsReady() != 1)
   {
   }
 
-  // Enable backup domain access
-  LL_PWR_EnableBkUpAccess();
 
-  // Reset backup domain
-  LL_RCC_ForceBackupDomainReset();
-  LL_RCC_ReleaseBackupDomainReset();
 
   // Configure RTC prescalers
   LL_RTC_DisableWriteProtection(RTC);
   LL_RTC_SetAsynchPrescaler(RTC, 0x7F);
   LL_RTC_SetSynchPrescaler(RTC, 0xFF);
   LL_RTC_EnableWriteProtection(RTC);
+
+  LL_RCC_EnableRTC();
 }
 void SystemClock_Config_exp5(void)
 {

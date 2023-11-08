@@ -19,14 +19,37 @@ volatile int LED_ON = 0;
 volatile int Old_State_Blue_Button = 0;
 volatile int Actual_State_Blue_Button = 0;
 volatile int Sleep_State = 0;
-volatile int expe = 5;
+volatile int expe = 1;
+volatile int a=0;
+
+void save_and_increment_expe(void) {
+    // Check if blue button is pressed
+    if (BLUE_BUTTON()) {
+        // Read the backup register value
+        uint32_t expe_backup = LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0);
+        // Increment expe and ensure it loops from 1 to 8
+        expe_backup = (expe_backup % 8) + 1;
+        // Write the new value to the backup register
+        LL_RTC_BAK_SetRegister(RTC, LL_RTC_BKP_DR0, expe_backup);
+    }
+}
+
+
 int main(void) {
+	GPIO_init();
 	/*clock domains activation*/
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+	LL_PWR_EnableBkUpAccess();
 
 	NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
+	RTC_Init(); //qque si LSE off
+
+	SystemClock_Config_exp1();
+	save_and_increment_expe();
+	// Initialize expe with the value from the backup register
+	expe = LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0);
 	/* Configure the system clock */
 	if (expe == 1) {
 		SystemClock_Config_exp1();
@@ -42,7 +65,7 @@ int main(void) {
 	}
 	if (expe == 5) {
 		SystemClock_Config_exp5();
-		RTC_Init();
+
 		RCC->CR |= RCC_CR_MSIPLLEN;
 		LL_LPM_EnableSleep();
 		Sleep_State = 1;
@@ -50,7 +73,7 @@ int main(void) {
 	}
 	/* Initialize all configured peripherals */
 	//GPIO configuration
-	GPIO_init();
+
 
 	//initialization of systick timer (tick period set at 1 ms)
 	//LL_Init1msTick( SystemCoreClock );

@@ -36,17 +36,20 @@ void save_and_increment_expe(void) {
 
 
 int main(void) {
-	GPIO_init();
 	/*clock domains activation*/
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
+	GPIO_init();
 	LL_PWR_EnableBkUpAccess();
 
 	NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+	if (LL_RCC_LSE_IsReady()==1){
+		RTC_Init_HotStart();
+	}else{
+		RTC_Init_ColdStart();
+	}
 
-	RTC_Init(); //qque si LSE off
-
-	SystemClock_Config_exp1();
+	//SystemClock_Config_exp1();
 	save_and_increment_expe();
 	// Initialize expe with the value from the backup register
 	expe = LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0);

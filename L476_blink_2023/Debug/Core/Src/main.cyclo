@@ -1,6 +1,7 @@
 core_cm4.h:1648:22:__NVIC_SetPriorityGrouping	1
 core_cm4.h:1809:22:__NVIC_SetPriority	2
 core_cm4.h:2017:26:SysTick_Config	2
+stm32l4xx_ll_rcc.h:2362:26:LL_RCC_LSE_IsReady	2
 stm32l4xx_ll_bus.h:1089:22:LL_APB1_GRP1_EnableClock	1
 stm32l4xx_ll_bus.h:1675:22:LL_APB2_GRP1_EnableClock	1
 stm32l4xx_ll_cortex.h:310:22:LL_LPM_EnableSleep	1
@@ -8,5 +9,5 @@ stm32l4xx_ll_pwr.h:398:22:LL_PWR_EnableBkUpAccess	1
 stm32l4xx_ll_rtc.h:4839:22:LL_RTC_BAK_SetRegister	1
 stm32l4xx_ll_rtc.h:4889:26:LL_RTC_BAK_GetRegister	1
 main.c:25:6:save_and_increment_expe	2
-main.c:38:5:main	6
-main.c:94:6:SysTick_Handler	23
+main.c:38:5:main	7
+main.c:97:6:SysTick_Handler	23

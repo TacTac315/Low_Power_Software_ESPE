@@ -26,11 +26,13 @@
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rtc.h:1322:22:LL_RTC_SetSynchPrescaler	16	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rtc.h:1355:22:LL_RTC_EnableWriteProtection	16	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rtc.h:1366:22:LL_RTC_DisableWriteProtection	16	static
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_rtc.h:4839:22:LL_RTC_BAK_SetRegister	32	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_system.h:1400:22:LL_FLASH_SetLatency	16	static
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_system.h:1428:26:LL_FLASH_GetLatency	4	static
 ../Core/Src/clock.c:30:6:SystemClock_Config_exp1	8	static
 ../Core/Src/clock.c:83:6:SystemClock_Config_exp2	8	static
-../Core/Src/clock.c:120:6:SystemClock_Config_exp2_blue	8	static
-../Core/Src/clock.c:157:6:SystemClock_Config_exp3	8	static
-../Core/Src/clock.c:194:6:RTC_Init	8	static
-../Core/Src/clock.c:216:6:SystemClock_Config_exp5	8	static
+../Core/Src/clock.c:109:6:SystemClock_Config_exp2_blue	8	static
+../Core/Src/clock.c:146:6:SystemClock_Config_exp3	8	static
+../Core/Src/clock.c:173:6:RTC_Init_ColdStart	8	static
+../Core/Src/clock.c:195:6:RTC_Init_HotStart	8	static
+../Core/Src/clock.c:207:6:SystemClock_Config_exp5	8	static

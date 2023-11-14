@@ -87,13 +87,6 @@ void SystemClock_Config_exp2(void)
   {
   }
   LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE1);
-  LL_RCC_LSI_Enable();
-
-   /* Wait till LSI is ready */
-  while(LL_RCC_LSI_IsReady() != 1)
-  {
-
-  }
   LL_RCC_MSI_Enable();
 
    /* Wait till MSI is ready */
@@ -104,11 +97,7 @@ void SystemClock_Config_exp2(void)
   LL_RCC_MSI_EnableRangeSelection();
   LL_RCC_MSI_SetRange(LL_RCC_MSIRANGE_9);
   LL_RCC_MSI_SetCalibTrimming(0);
-  LL_PWR_EnableBkUpAccess();
-  //LL_RCC_ForceBackupDomainReset();
-  //LL_RCC_ReleaseBackupDomainReset();
-  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
-  LL_RCC_EnableRTC();
+  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_MSI);
 
   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
@@ -168,16 +157,6 @@ void SystemClock_Config_exp3(void)
   {
 
   }
-  LL_RCC_MSI_Enable();
-
-   /* Wait till MSI is ready */
-  while(LL_RCC_MSI_IsReady() != 1)
-  {
-
-  }
-  LL_RCC_MSI_EnableRangeSelection();
-  LL_RCC_MSI_SetRange(LL_RCC_MSIRANGE_9);
-  LL_RCC_MSI_SetCalibTrimming(0);
   LL_PWR_EnableBkUpAccess();
   //LL_RCC_ForceBackupDomainReset();
   //LL_RCC_ReleaseBackupDomainReset();
@@ -191,27 +170,37 @@ void SystemClock_Config_exp3(void)
   //update global variable SystemCoreClock --> give access to CPU clock frequency.
   LL_SetSystemCoreClock(24000000);
 }
-void RTC_Init(void)
+void RTC_Init_ColdStart(void)
 {
-  // Enable LSE oscillator
+    // Enable LSE oscillator
+    LL_RCC_ForceBackupDomainReset();
+    LL_RCC_ReleaseBackupDomainReset();
+    LL_RCC_LSE_Enable();
+    while (LL_RCC_LSE_IsReady() != 1)
+    {
+    }
 
-	 // Reset backup domain
-	  LL_RCC_ForceBackupDomainReset();
-	  LL_RCC_ReleaseBackupDomainReset();
-  LL_RCC_LSE_Enable();
-  while (LL_RCC_LSE_IsReady() != 1)
-  {
-  }
+    // Configure RTC prescalers
+    LL_RTC_DisableWriteProtection(RTC);
+    LL_RTC_SetAsynchPrescaler(RTC, 0x7F);
+    LL_RTC_SetSynchPrescaler(RTC, 0xFF);
+    LL_RTC_EnableWriteProtection(RTC);
+
+    // Reset BKP_DR0 to a known initial value (1 in this case)
+    LL_RTC_BAK_SetRegister(RTC, LL_RTC_BKP_DR0, 1);
+
+    LL_RCC_EnableRTC();
+}
+
+void RTC_Init_HotStart(void){
+    // Configure RTC prescalers
+    LL_RTC_DisableWriteProtection(RTC);
+    LL_RTC_SetAsynchPrescaler(RTC, 0x7F);
+    LL_RTC_SetSynchPrescaler(RTC, 0xFF);
+    LL_RTC_EnableWriteProtection(RTC);
 
 
-
-  // Configure RTC prescalers
-  LL_RTC_DisableWriteProtection(RTC);
-  LL_RTC_SetAsynchPrescaler(RTC, 0x7F);
-  LL_RTC_SetSynchPrescaler(RTC, 0xFF);
-  LL_RTC_EnableWriteProtection(RTC);
-
-  LL_RCC_EnableRTC();
+    LL_RCC_EnableRTC();
 }
 void SystemClock_Config_exp5(void)
 {

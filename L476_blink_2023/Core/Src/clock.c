@@ -158,8 +158,7 @@ void SystemClock_Config_exp3(void)
 
   }
   LL_PWR_EnableBkUpAccess();
-  //LL_RCC_ForceBackupDomainReset();
-  //LL_RCC_ReleaseBackupDomainReset();
+
   LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
   LL_RCC_EnableRTC();
 
@@ -209,13 +208,6 @@ void SystemClock_Config_exp5(void)
 	  {
 	  }
 	  LL_PWR_SetRegulVoltageScaling(LL_PWR_REGU_VOLTAGE_SCALE2);
-	  LL_RCC_LSI_Enable();
-
-	   /* Wait till LSI is ready */
-	  while(LL_RCC_LSI_IsReady() != 1)
-	  {
-
-	  }
 	  LL_RCC_MSI_Enable();
 
 	   /* Wait till MSI is ready */
@@ -226,11 +218,7 @@ void SystemClock_Config_exp5(void)
 	  LL_RCC_MSI_EnableRangeSelection();
 	  LL_RCC_MSI_SetRange(LL_RCC_MSIRANGE_9);
 	  LL_RCC_MSI_SetCalibTrimming(0);
-	  LL_PWR_EnableBkUpAccess();
-	  //LL_RCC_ForceBackupDomainReset();
-	  //LL_RCC_ReleaseBackupDomainReset();
-	  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
-	  LL_RCC_EnableRTC();
+	  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_MSI);
 
 	  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
 	  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
@@ -240,51 +228,52 @@ void SystemClock_Config_exp5(void)
 	  LL_SetSystemCoreClock(24000000);
 }
 
-/*
-// partie commune a toutes les utilisations du wakeup timer
-void RTC_wakeup_init( int delay )
-{
-LL_RTC_DisableWriteProtection( RTC );
-LL_RTC_WAKEUP_Disable( RTC );
-while	( !LL_RTC_IsActiveFlag_WUTW( RTC ) )
-	{ }
-// connecter le timer a l'horloge 1Hz de la RTC
-LL_RTC_WAKEUP_SetClock( RTC, LL_RTC_WAKEUPCLOCK_CKSPRE );
-// fixer la duree de temporisation
-LL_RTC_WAKEUP_SetAutoReload( RTC, delay );	// 16 bits
-LL_RTC_ClearFlag_WUT(RTC);
-LL_RTC_EnableIT_WUT(RTC);
-LL_RTC_WAKEUP_Enable(RTC);
-LL_RTC_EnableWriteProtection(RTC);
-}
+//void enter_stop0_mode(void) {
+//    // Configure the system to enter STOP0 mode after
+//    // the CPU enters deepsleep mode
+//    LL_PWR_SetPowerMode(LL_PWR_MODE_STOP0);
+//
+//    // Set SLEEPDEEP bit of Cortex System Control Register
+//    LL_LPM_EnableDeepSleep();
+//
+//    // Configure the wakeup timer
+//    LL_RTC_DisableWriteProtection(RTC);
+//    LL_RTC_WAKEUP_Disable(RTC);
+//    while(!LL_RTC_IsActiveFlag_WUTW(RTC)) {}
+//    LL_RTC_WAKEUP_SetClock(RTC, LL_RTC_WAKEUPCLOCK_DIV_16);
+//    LL_RTC_WAKEUP_SetAutoReload(RTC, 7 * 32768 / 16 - 1);
+//    LL_RTC_ClearFlag_WUT(RTC);
+//    LL_RTC_EnableIT_WUT(RTC);
+//    LL_RTC_WAKEUP_Enable(RTC);
+//    LL_RTC_EnableWriteProtection(RTC);
+//
+//    // Request Wait For Interrupt
+//    __WFI();
+//}
 
-// Dans le cas des modes STANDBY et SHUTDOWN, le MPU sera reveille par reset
-// causé par 1 wakeup line (interne ou externe) (le NVIC n'est plus alimenté)
-void RTC_wakeup_init_from_standby_or_shutdown( int delay )
-{
-RTC_wakeup_init( delay );
-// enable the Internal Wake-up line
-LL_PWR_EnableInternWU();	// ceci ne concerne que Standby et Shutdown, pas STOPx
-}
+//void exit_stop_mode(void) {
+//    LL_RCC_MSI_Enable();
+//    while(LL_RCC_MSI_IsReady() != 1)
+//  	  {
+//
+//  	  }
+//
+//
+//    // Reconfigure peripherals if needed
+//    // ...
+//
+//    // Clear the SLEEPDEEP bit of the Cortex System Control Register
+//    LL_LPM_DisableDeepSleep();
+//
+//    // Clear the PDDS and LPDS bits in the PWR power control register
+//    LL_PWR_SetPowerMode(LL_PWR_MODE_STOP0);
+//
+//    // Disable the wakeup timer
+//    LL_RTC_DisableWriteProtection(RTC);
+//    LL_RTC_WAKEUP_Disable(RTC);
+//    LL_RTC_EnableWriteProtection(RTC);
+//}
 
-// Dans le cas des modes STOPx, le MPU sera reveille par interruption
-// le module EXTI et une partie du NVIC sont encore alimentes
-// le contenu de la RAM et des registres étant préservé, le MPU
-// reprend l'execution après l'instruction WFI
-void RTC_wakeup_init_from_stop( int delay )
-{
-RTC_wakeup_init( delay );
-// valider l'interrupt par la ligne 20 du module EXTI, qui est réservée au wakeup timer
-LL_EXTI_EnableIT_0_31( LL_EXTI_LINE_20 );
-LL_EXTI_EnableRisingTrig_0_31( LL_EXTI_LINE_20 );
-// valider l'interrupt chez NVIC
-NVIC_SetPriority( RTC_WKUP_IRQn, 1 );
-NVIC_EnableIRQ( RTC_WKUP_IRQn );
-}
 
-// wakeup timer interrupt Handler (inutile mais doit etre defini)
-void RTC_WKUP_IRQHandler()
-{
-LL_EXTI_ClearFlag_0_31( LL_EXTI_LINE_20 );
-}
-*/
+
+

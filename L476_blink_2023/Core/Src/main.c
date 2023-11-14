@@ -60,7 +60,7 @@ int main(void) {
 	}
 	if (expe == 2) {
 		SystemClock_Config_exp2();
-		//SystemClock_Config_exp2_blue();
+
 	}
 	if (expe == 3) {
 		SystemClock_Config_exp3();
@@ -69,11 +69,12 @@ int main(void) {
 	if (expe == 5) {
 		SystemClock_Config_exp5();
 
-		RCC->CR |= RCC_CR_MSIPLLEN;
-		LL_LPM_EnableSleep();
-		Sleep_State = 1;
+		/*RCC->CR |= RCC_CR_MSIPLLEN;
+		LL_LPM_EnableSleep();*/
+		//Sleep_State = 1;
 		//RTC_wakeup_init_from_stop(7);
 	}
+
 	/* Initialize all configured peripherals */
 	//GPIO configuration
 
@@ -98,7 +99,10 @@ void SysTick_Handler(void) {
 	millis += 10;
 	if (expe == 2) {
 		GPIOC->ODR ^= (1 << 10);
-
+		if (BLUE_BUTTON())
+		{
+			//SystemClock_Config_exp2_blue();
+		}
 		if (LED_ON == 1 && millis >= 100) {
 			LED_GREEN(0);
 			LED_ON = 0;
@@ -127,6 +131,9 @@ void SysTick_Handler(void) {
 		GPIOC->ODR ^= (1 << 10);
 		if (BLUE_BUTTON())
 		{
+			RTC_wakeup_init_from_stop(7);
+			enter_stop0_mode();
+
 		}
 		if (LED_ON == 1 && millis >= 250) {
 			LED_GREEN(0);
@@ -153,5 +160,57 @@ void SysTick_Handler(void) {
 			millis = 0;
 		}
 	}
+}
+// partie commune a toutes les utilisations du wakeup timer
+void RTC_wakeup_init( int delay )
+{
+LL_RTC_DisableWriteProtection( RTC );
+LL_RTC_WAKEUP_Disable( RTC );
+while	( !LL_RTC_IsActiveFlag_WUTW( RTC ) )
+	{ }
+// connecter le timer a l'horloge 1Hz de la RTC
+LL_RTC_WAKEUP_SetClock( RTC, LL_RTC_WAKEUPCLOCK_CKSPRE );
+// fixer la duree de temporisation
+LL_RTC_WAKEUP_SetAutoReload( RTC, delay );	// 16 bits
+LL_RTC_ClearFlag_WUT(RTC);
+LL_RTC_EnableIT_WUT(RTC);
+LL_RTC_WAKEUP_Enable(RTC);
+LL_RTC_EnableWriteProtection(RTC);
+}
+
+// Dans le cas des modes STANDBY et SHUTDOWN, le MPU sera reveille par reset
+// causé par 1 wakeup line (interne ou externe) (le NVIC n'est plus alimenté)
+void RTC_wakeup_init_from_standby_or_shutdown( int delay )
+{
+RTC_wakeup_init( delay );
+// enable the Internal Wake-up line
+LL_PWR_EnableInternWU();	// ceci ne concerne que Standby et Shutdown, pas STOPx
+}
+
+// Dans le cas des modes STOPx, le MPU sera reveille par interruption
+// le module EXTI et une partie du NVIC sont encore alimentes
+// le contenu de la RAM et des registres étant préservé, le MPU
+// reprend l'execution après l'instruction WFI
+void RTC_wakeup_init_from_stop( int delay )
+{
+RTC_wakeup_init( delay );
+// valider l'interrupt par la ligne 20 du module EXTI, qui est réservée au wakeup timer
+LL_EXTI_EnableIT_0_31( LL_EXTI_LINE_20 );
+LL_EXTI_EnableRisingTrig_0_31( LL_EXTI_LINE_20 );
+// valider l'interrupt chez NVIC
+NVIC_SetPriority( RTC_WKUP_IRQn, 1 );
+NVIC_EnableIRQ( RTC_WKUP_IRQn );
+}
+
+// wakeup timer interrupt Handler (inutile mais doit etre defini)
+void RTC_WKUP_IRQHandler()
+{
+LL_EXTI_ClearFlag_0_31( LL_EXTI_LINE_20 );
+}
+
+void enter_stop0_mode(){
+	LL_PWR_SetPowerMode(LL_PWR_MODE_STOP0);
+	LL_LPM_EnableDeepSleep();
+	__WFI();
 }
 

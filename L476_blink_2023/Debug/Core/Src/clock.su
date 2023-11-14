@@ -33,6 +33,6 @@
 ../Core/Src/clock.c:83:6:SystemClock_Config_exp2	8	static
 ../Core/Src/clock.c:109:6:SystemClock_Config_exp2_blue	8	static
 ../Core/Src/clock.c:146:6:SystemClock_Config_exp3	8	static
-../Core/Src/clock.c:173:6:RTC_Init_ColdStart	8	static
-../Core/Src/clock.c:195:6:RTC_Init_HotStart	8	static
-../Core/Src/clock.c:207:6:SystemClock_Config_exp5	8	static
+../Core/Src/clock.c:172:6:RTC_Init_ColdStart	8	static
+../Core/Src/clock.c:194:6:RTC_Init_HotStart	8	static
+../Core/Src/clock.c:204:6:SystemClock_Config_exp5	8	static

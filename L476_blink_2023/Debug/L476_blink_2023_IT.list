@@ -5,25 +5,25 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   00000188  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00001524  08000188  08000188  00010188  2**2
+  1 .text         00001530  08000188  08000188  00010188  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000000  080016ac  080016ac  00020008  2**0
+  2 .rodata       00000000  080016b8  080016b8  00020008  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .ARM.extab    00000000  080016ac  080016ac  00020008  2**0
+  3 .ARM.extab    00000000  080016b8  080016b8  00020008  2**0
                   CONTENTS
-  4 .ARM          00000000  080016ac  080016ac  00020008  2**0
+  4 .ARM          00000000  080016b8  080016b8  00020008  2**0
                   CONTENTS
-  5 .preinit_array 00000000  080016ac  080016ac  00020008  2**0
+  5 .preinit_array 00000000  080016b8  080016b8  00020008  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  080016ac  080016ac  000116ac  2**2
+  6 .init_array   00000004  080016b8  080016b8  000116b8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  080016b0  080016b0  000116b0  2**2
+  7 .fini_array   00000004  080016bc  080016bc  000116bc  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         00000008  20000000  080016b4  00020000  2**2
+  8 .data         00000008  20000000  080016c0  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00000030  20000008  080016bc  00020008  2**2
+  9 .bss          00000030  20000008  080016c8  00020008  2**2
                   ALLOC
- 10 ._user_heap_stack 00000600  20000038  080016bc  00020038  2**0
+ 10 ._user_heap_stack 00000600  20000038  080016c8  00020038  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020008  2**0
                   CONTENTS, READONLY
@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  0001e79f  00000000  00000000  00024fe8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00003480  00000000  00000000  00043787  2**0
+ 17 .debug_line   00003489  00000000  00000000  00043787  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000abd12  00000000  00000000  00046c07  2**0
+ 18 .debug_str    000abd12  00000000  00000000  00046c10  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000f2919  2**0
+ 19 .comment      00000050  00000000  00000000  000f2922  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000011f0  00000000  00000000  000f296c  2**2
+ 20 .debug_frame  000011f0  00000000  00000000  000f2974  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -62,7 +62,7 @@ Disassembly of section .text:
  800019e:	bd10      	pop	{r4, pc}
  80001a0:	20000008 	.word	0x20000008
  80001a4:	00000000 	.word	0x00000000
- 80001a8:	08001694 	.word	0x08001694
+ 80001a8:	080016a0 	.word	0x080016a0
 
 080001ac <frame_dummy>:
  80001ac:	b508      	push	{r3, lr}
@@ -74,7 +74,7 @@ Disassembly of section .text:
  80001ba:	bd08      	pop	{r3, pc}
  80001bc:	00000000 	.word	0x00000000
  80001c0:	2000000c 	.word	0x2000000c
- 80001c4:	08001694 	.word	0x08001694
+ 80001c4:	080016a0 	.word	0x080016a0
 
 080001c8 <LL_RCC_LSE_Enable>:
   * @brief  Enable  Low Speed External (LSE) crystal.
@@ -991,7 +991,7 @@ void SystemClock_Config_exp1(void)
   //update global variable SystemCoreClock --> give access to CPU clock frequency.
   LL_SetSystemCoreClock(80000000);
  80006f2:	4802      	ldr	r0, [pc, #8]	; (80006fc <SystemClock_Config_exp1+0x9c>)
- 80006f4:	f000 ff9a 	bl	800162c <LL_SetSystemCoreClock>
+ 80006f4:	f000 ffa0 	bl	8001638 <LL_SetSystemCoreClock>
 
 }
  80006f8:	bf00      	nop
@@ -1055,7 +1055,7 @@ void SystemClock_Config_exp2(void)
   //update global variable SystemCoreClock --> give access to CPU clock frequency.
   LL_SetSystemCoreClock(24000000);
  8000756:	4802      	ldr	r0, [pc, #8]	; (8000760 <SystemClock_Config_exp2+0x60>)
- 8000758:	f000 ff68 	bl	800162c <LL_SetSystemCoreClock>
+ 8000758:	f000 ff6e 	bl	8001638 <LL_SetSystemCoreClock>
 }
  800075c:	bf00      	nop
  800075e:	bd80      	pop	{r7, pc}
@@ -1119,7 +1119,7 @@ void SystemClock_Config_exp3(void)
   //update global variable SystemCoreClock --> give access to CPU clock frequency.
   LL_SetSystemCoreClock(24000000);
  80007b4:	4802      	ldr	r0, [pc, #8]	; (80007c0 <SystemClock_Config_exp3+0x5c>)
- 80007b6:	f000 ff39 	bl	800162c <LL_SetSystemCoreClock>
+ 80007b6:	f000 ff3f 	bl	8001638 <LL_SetSystemCoreClock>
 }
  80007ba:	bf00      	nop
  80007bc:	bd80      	pop	{r7, pc}
@@ -1276,7 +1276,7 @@ void SystemClock_Config_exp5(void)
 	  //update global variable SystemCoreClock --> give access to CPU clock frequency.
 	  LL_SetSystemCoreClock(24000000);
  80008b2:	4802      	ldr	r0, [pc, #8]	; (80008bc <SystemClock_Config_exp5+0x6c>)
- 80008b4:	f000 feba 	bl	800162c <LL_SetSystemCoreClock>
+ 80008b4:	f000 fec0 	bl	8001638 <LL_SetSystemCoreClock>
 }
  80008b8:	bf00      	nop
  80008ba:	bd80      	pop	{r7, pc}
@@ -2475,1257 +2475,1267 @@ int main(void) {
 	// Initialize expe with the value from the backup register
 	expe = LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0);
  8000f78:	2100      	movs	r1, #0
- 8000f7a:	4831      	ldr	r0, [pc, #196]	; (8001040 <main+0x100>)
+ 8000f7a:	4834      	ldr	r0, [pc, #208]	; (800104c <main+0x10c>)
  8000f7c:	f7ff ff76 	bl	8000e6c <LL_RTC_BAK_GetRegister>
  8000f80:	4603      	mov	r3, r0
  8000f82:	461a      	mov	r2, r3
- 8000f84:	4b2f      	ldr	r3, [pc, #188]	; (8001044 <main+0x104>)
+ 8000f84:	4b32      	ldr	r3, [pc, #200]	; (8001050 <main+0x110>)
  8000f86:	601a      	str	r2, [r3, #0]
+	//8 experiences au total => on reset expe une fois arrive a 8
+	if (expe == 9){
+ 8000f88:	4b31      	ldr	r3, [pc, #196]	; (8001050 <main+0x110>)
+ 8000f8a:	681b      	ldr	r3, [r3, #0]
+ 8000f8c:	2b09      	cmp	r3, #9
+ 8000f8e:	d102      	bne.n	8000f96 <main+0x56>
+		expe=1;
+ 8000f90:	4b2f      	ldr	r3, [pc, #188]	; (8001050 <main+0x110>)
+ 8000f92:	2201      	movs	r2, #1
+ 8000f94:	601a      	str	r2, [r3, #0]
+	}
 	//expe = 6;
 	/* Configure the system clock */
 	if (expe == 1) {
- 8000f88:	4b2e      	ldr	r3, [pc, #184]	; (8001044 <main+0x104>)
- 8000f8a:	681b      	ldr	r3, [r3, #0]
- 8000f8c:	2b01      	cmp	r3, #1
- 8000f8e:	d103      	bne.n	8000f98 <main+0x58>
+ 8000f96:	4b2e      	ldr	r3, [pc, #184]	; (8001050 <main+0x110>)
+ 8000f98:	681b      	ldr	r3, [r3, #0]
+ 8000f9a:	2b01      	cmp	r3, #1
+ 8000f9c:	d103      	bne.n	8000fa6 <main+0x66>
 		SystemClock_Config_exp1();
- 8000f90:	f7ff fb66 	bl	8000660 <SystemClock_Config_exp1>
+ 8000f9e:	f7ff fb5f 	bl	8000660 <SystemClock_Config_exp1>
 		LL_LPM_EnableSleep();
- 8000f94:	f7ff fe9a 	bl	8000ccc <LL_LPM_EnableSleep>
+ 8000fa2:	f7ff fe93 	bl	8000ccc <LL_LPM_EnableSleep>
 	}
 	if (expe == 2) {
- 8000f98:	4b2a      	ldr	r3, [pc, #168]	; (8001044 <main+0x104>)
- 8000f9a:	681b      	ldr	r3, [r3, #0]
- 8000f9c:	2b02      	cmp	r3, #2
- 8000f9e:	d101      	bne.n	8000fa4 <main+0x64>
+ 8000fa6:	4b2a      	ldr	r3, [pc, #168]	; (8001050 <main+0x110>)
+ 8000fa8:	681b      	ldr	r3, [r3, #0]
+ 8000faa:	2b02      	cmp	r3, #2
+ 8000fac:	d101      	bne.n	8000fb2 <main+0x72>
 		SystemClock_Config_exp2();
- 8000fa0:	f7ff fbae 	bl	8000700 <SystemClock_Config_exp2>
+ 8000fae:	f7ff fba7 	bl	8000700 <SystemClock_Config_exp2>
 
 	}
 	if (expe == 3) {
- 8000fa4:	4b27      	ldr	r3, [pc, #156]	; (8001044 <main+0x104>)
- 8000fa6:	681b      	ldr	r3, [r3, #0]
- 8000fa8:	2b03      	cmp	r3, #3
- 8000faa:	d103      	bne.n	8000fb4 <main+0x74>
+ 8000fb2:	4b27      	ldr	r3, [pc, #156]	; (8001050 <main+0x110>)
+ 8000fb4:	681b      	ldr	r3, [r3, #0]
+ 8000fb6:	2b03      	cmp	r3, #3
+ 8000fb8:	d103      	bne.n	8000fc2 <main+0x82>
 		SystemClock_Config_exp3();
- 8000fac:	f7ff fbda 	bl	8000764 <SystemClock_Config_exp3>
+ 8000fba:	f7ff fbd3 	bl	8000764 <SystemClock_Config_exp3>
 		LL_LPM_EnableSleep();
- 8000fb0:	f7ff fe8c 	bl	8000ccc <LL_LPM_EnableSleep>
+ 8000fbe:	f7ff fe85 	bl	8000ccc <LL_LPM_EnableSleep>
 	}
 	if (expe ==4){ //expe3 bis car non realise
- 8000fb4:	4b23      	ldr	r3, [pc, #140]	; (8001044 <main+0x104>)
- 8000fb6:	681b      	ldr	r3, [r3, #0]
- 8000fb8:	2b04      	cmp	r3, #4
- 8000fba:	d103      	bne.n	8000fc4 <main+0x84>
+ 8000fc2:	4b23      	ldr	r3, [pc, #140]	; (8001050 <main+0x110>)
+ 8000fc4:	681b      	ldr	r3, [r3, #0]
+ 8000fc6:	2b04      	cmp	r3, #4
+ 8000fc8:	d103      	bne.n	8000fd2 <main+0x92>
 		SystemClock_Config_exp3();
- 8000fbc:	f7ff fbd2 	bl	8000764 <SystemClock_Config_exp3>
+ 8000fca:	f7ff fbcb 	bl	8000764 <SystemClock_Config_exp3>
 		LL_LPM_EnableSleep();
- 8000fc0:	f7ff fe84 	bl	8000ccc <LL_LPM_EnableSleep>
+ 8000fce:	f7ff fe7d 	bl	8000ccc <LL_LPM_EnableSleep>
 	}
 	if (expe == 5) {
- 8000fc4:	4b1f      	ldr	r3, [pc, #124]	; (8001044 <main+0x104>)
- 8000fc6:	681b      	ldr	r3, [r3, #0]
- 8000fc8:	2b05      	cmp	r3, #5
- 8000fca:	d105      	bne.n	8000fd8 <main+0x98>
+ 8000fd2:	4b1f      	ldr	r3, [pc, #124]	; (8001050 <main+0x110>)
+ 8000fd4:	681b      	ldr	r3, [r3, #0]
+ 8000fd6:	2b05      	cmp	r3, #5
+ 8000fd8:	d105      	bne.n	8000fe6 <main+0xa6>
 		SystemClock_Config_exp5();
- 8000fcc:	f7ff fc40 	bl	8000850 <SystemClock_Config_exp5>
+ 8000fda:	f7ff fc39 	bl	8000850 <SystemClock_Config_exp5>
 		LL_LPM_EnableSleep();
- 8000fd0:	f7ff fe7c 	bl	8000ccc <LL_LPM_EnableSleep>
+ 8000fde:	f7ff fe75 	bl	8000ccc <LL_LPM_EnableSleep>
 		LL_RCC_MSI_EnablePLLMode();
- 8000fd4:	f7ff fe06 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
+ 8000fe2:	f7ff fdff 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
 	}
 	if (expe == 6) {
- 8000fd8:	4b1a      	ldr	r3, [pc, #104]	; (8001044 <main+0x104>)
- 8000fda:	681b      	ldr	r3, [r3, #0]
- 8000fdc:	2b06      	cmp	r3, #6
- 8000fde:	d105      	bne.n	8000fec <main+0xac>
+ 8000fe6:	4b1a      	ldr	r3, [pc, #104]	; (8001050 <main+0x110>)
+ 8000fe8:	681b      	ldr	r3, [r3, #0]
+ 8000fea:	2b06      	cmp	r3, #6
+ 8000fec:	d105      	bne.n	8000ffa <main+0xba>
 		SystemClock_Config_exp5();
- 8000fe0:	f7ff fc36 	bl	8000850 <SystemClock_Config_exp5>
+ 8000fee:	f7ff fc2f 	bl	8000850 <SystemClock_Config_exp5>
 		LL_LPM_EnableSleep();
- 8000fe4:	f7ff fe72 	bl	8000ccc <LL_LPM_EnableSleep>
+ 8000ff2:	f7ff fe6b 	bl	8000ccc <LL_LPM_EnableSleep>
 		LL_RCC_MSI_EnablePLLMode();
- 8000fe8:	f7ff fdfc 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
+ 8000ff6:	f7ff fdf5 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
 	}
 	if (expe == 7) {
- 8000fec:	4b15      	ldr	r3, [pc, #84]	; (8001044 <main+0x104>)
- 8000fee:	681b      	ldr	r3, [r3, #0]
- 8000ff0:	2b07      	cmp	r3, #7
- 8000ff2:	d105      	bne.n	8001000 <main+0xc0>
+ 8000ffa:	4b15      	ldr	r3, [pc, #84]	; (8001050 <main+0x110>)
+ 8000ffc:	681b      	ldr	r3, [r3, #0]
+ 8000ffe:	2b07      	cmp	r3, #7
+ 8001000:	d105      	bne.n	800100e <main+0xce>
 		SystemClock_Config_exp5();
- 8000ff4:	f7ff fc2c 	bl	8000850 <SystemClock_Config_exp5>
+ 8001002:	f7ff fc25 	bl	8000850 <SystemClock_Config_exp5>
 		LL_LPM_EnableSleep();
- 8000ff8:	f7ff fe68 	bl	8000ccc <LL_LPM_EnableSleep>
+ 8001006:	f7ff fe61 	bl	8000ccc <LL_LPM_EnableSleep>
 		LL_RCC_MSI_EnablePLLMode();
- 8000ffc:	f7ff fdf2 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
+ 800100a:	f7ff fdeb 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
 	}
 	if (expe == 8) {
- 8001000:	4b10      	ldr	r3, [pc, #64]	; (8001044 <main+0x104>)
- 8001002:	681b      	ldr	r3, [r3, #0]
- 8001004:	2b08      	cmp	r3, #8
- 8001006:	d105      	bne.n	8001014 <main+0xd4>
+ 800100e:	4b10      	ldr	r3, [pc, #64]	; (8001050 <main+0x110>)
+ 8001010:	681b      	ldr	r3, [r3, #0]
+ 8001012:	2b08      	cmp	r3, #8
+ 8001014:	d105      	bne.n	8001022 <main+0xe2>
 		SystemClock_Config_exp5();
- 8001008:	f7ff fc22 	bl	8000850 <SystemClock_Config_exp5>
+ 8001016:	f7ff fc1b 	bl	8000850 <SystemClock_Config_exp5>
 		LL_LPM_EnableSleep();
- 800100c:	f7ff fe5e 	bl	8000ccc <LL_LPM_EnableSleep>
+ 800101a:	f7ff fe57 	bl	8000ccc <LL_LPM_EnableSleep>
 		LL_RCC_MSI_EnablePLLMode();
- 8001010:	f7ff fde8 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
+ 800101e:	f7ff fde1 	bl	8000be4 <LL_RCC_MSI_EnablePLLMode>
 	/* Initialize all configured peripherals */
 	//GPIO configuration
 	//initialization of systick timer (tick period set at 1 ms)
 	//LL_Init1msTick( SystemCoreClock );
 	//set priority
 	NVIC_SetPriority(SysTick_IRQn, -1);
- 8001014:	f04f 31ff 	mov.w	r1, #4294967295
- 8001018:	f04f 30ff 	mov.w	r0, #4294967295
- 800101c:	f7ff fd82 	bl	8000b24 <__NVIC_SetPriority>
+ 8001022:	f04f 31ff 	mov.w	r1, #4294967295
+ 8001026:	f04f 30ff 	mov.w	r0, #4294967295
+ 800102a:	f7ff fd7b 	bl	8000b24 <__NVIC_SetPriority>
 	//Set the Systick reload value for a 10ms overflow
 	SysTick_Config(SystemCoreClock / 100); // 10ms overflow
- 8001020:	4b09      	ldr	r3, [pc, #36]	; (8001048 <main+0x108>)
- 8001022:	681b      	ldr	r3, [r3, #0]
- 8001024:	4a09      	ldr	r2, [pc, #36]	; (800104c <main+0x10c>)
- 8001026:	fba2 2303 	umull	r2, r3, r2, r3
- 800102a:	095b      	lsrs	r3, r3, #5
- 800102c:	4618      	mov	r0, r3
- 800102e:	f7ff fda3 	bl	8000b78 <SysTick_Config>
+ 800102e:	4b09      	ldr	r3, [pc, #36]	; (8001054 <main+0x114>)
+ 8001030:	681b      	ldr	r3, [r3, #0]
+ 8001032:	4a09      	ldr	r2, [pc, #36]	; (8001058 <main+0x118>)
+ 8001034:	fba2 2303 	umull	r2, r3, r2, r3
+ 8001038:	095b      	lsrs	r3, r3, #5
+ 800103a:	4618      	mov	r0, r3
+ 800103c:	f7ff fd9c 	bl	8000b78 <SysTick_Config>
 	//Enable the simple sleep mode
 
 	while (1) {
 		if (Sleep_State == 1)
- 8001032:	4b07      	ldr	r3, [pc, #28]	; (8001050 <main+0x110>)
- 8001034:	681b      	ldr	r3, [r3, #0]
- 8001036:	2b01      	cmp	r3, #1
- 8001038:	d1fb      	bne.n	8001032 <main+0xf2>
+ 8001040:	4b06      	ldr	r3, [pc, #24]	; (800105c <main+0x11c>)
+ 8001042:	681b      	ldr	r3, [r3, #0]
+ 8001044:	2b01      	cmp	r3, #1
+ 8001046:	d1fb      	bne.n	8001040 <main+0x100>
 			__WFI();
- 800103a:	bf30      	wfi
+ 8001048:	bf30      	wfi
 		if (Sleep_State == 1)
- 800103c:	e7f9      	b.n	8001032 <main+0xf2>
- 800103e:	bf00      	nop
- 8001040:	40002800 	.word	0x40002800
- 8001044:	20000030 	.word	0x20000030
- 8001048:	20000004 	.word	0x20000004
- 800104c:	51eb851f 	.word	0x51eb851f
- 8001050:	2000002c 	.word	0x2000002c
+ 800104a:	e7f9      	b.n	8001040 <main+0x100>
+ 800104c:	40002800 	.word	0x40002800
+ 8001050:	20000030 	.word	0x20000030
+ 8001054:	20000004 	.word	0x20000004
+ 8001058:	51eb851f 	.word	0x51eb851f
+ 800105c:	2000002c 	.word	0x2000002c
 
-08001054 <SysTick_Handler>:
+08001060 <SysTick_Handler>:
 
 	}
 }
 
 // systick interrupt handler
 void SysTick_Handler(void) {
- 8001054:	b580      	push	{r7, lr}
- 8001056:	af00      	add	r7, sp, #0
+ 8001060:	b580      	push	{r7, lr}
+ 8001062:	af00      	add	r7, sp, #0
 	millis += 10;
- 8001058:	4b93      	ldr	r3, [pc, #588]	; (80012a8 <SysTick_Handler+0x254>)
- 800105a:	681b      	ldr	r3, [r3, #0]
- 800105c:	330a      	adds	r3, #10
- 800105e:	4a92      	ldr	r2, [pc, #584]	; (80012a8 <SysTick_Handler+0x254>)
- 8001060:	6013      	str	r3, [r2, #0]
+ 8001064:	4b93      	ldr	r3, [pc, #588]	; (80012b4 <SysTick_Handler+0x254>)
+ 8001066:	681b      	ldr	r3, [r3, #0]
+ 8001068:	330a      	adds	r3, #10
+ 800106a:	4a92      	ldr	r2, [pc, #584]	; (80012b4 <SysTick_Handler+0x254>)
+ 800106c:	6013      	str	r3, [r2, #0]
 	if (BLUE_BUTTON() && !init) {
- 8001062:	f7ff fd0b 	bl	8000a7c <BLUE_BUTTON>
- 8001066:	4603      	mov	r3, r0
- 8001068:	2b00      	cmp	r3, #0
- 800106a:	d006      	beq.n	800107a <SysTick_Handler+0x26>
- 800106c:	4b8f      	ldr	r3, [pc, #572]	; (80012ac <SysTick_Handler+0x258>)
- 800106e:	681b      	ldr	r3, [r3, #0]
- 8001070:	2b00      	cmp	r3, #0
- 8001072:	d102      	bne.n	800107a <SysTick_Handler+0x26>
+ 800106e:	f7ff fd05 	bl	8000a7c <BLUE_BUTTON>
+ 8001072:	4603      	mov	r3, r0
+ 8001074:	2b00      	cmp	r3, #0
+ 8001076:	d006      	beq.n	8001086 <SysTick_Handler+0x26>
+ 8001078:	4b8f      	ldr	r3, [pc, #572]	; (80012b8 <SysTick_Handler+0x258>)
+ 800107a:	681b      	ldr	r3, [r3, #0]
+ 800107c:	2b00      	cmp	r3, #0
+ 800107e:	d102      	bne.n	8001086 <SysTick_Handler+0x26>
 		blue_mode = 1;
- 8001074:	4b8e      	ldr	r3, [pc, #568]	; (80012b0 <SysTick_Handler+0x25c>)
- 8001076:	2201      	movs	r2, #1
- 8001078:	601a      	str	r2, [r3, #0]
+ 8001080:	4b8e      	ldr	r3, [pc, #568]	; (80012bc <SysTick_Handler+0x25c>)
+ 8001082:	2201      	movs	r2, #1
+ 8001084:	601a      	str	r2, [r3, #0]
 	}
 	if (!BLUE_BUTTON() && init) {
- 800107a:	f7ff fcff 	bl	8000a7c <BLUE_BUTTON>
- 800107e:	4603      	mov	r3, r0
- 8001080:	2b00      	cmp	r3, #0
- 8001082:	d106      	bne.n	8001092 <SysTick_Handler+0x3e>
- 8001084:	4b89      	ldr	r3, [pc, #548]	; (80012ac <SysTick_Handler+0x258>)
- 8001086:	681b      	ldr	r3, [r3, #0]
- 8001088:	2b00      	cmp	r3, #0
- 800108a:	d002      	beq.n	8001092 <SysTick_Handler+0x3e>
+ 8001086:	f7ff fcf9 	bl	8000a7c <BLUE_BUTTON>
+ 800108a:	4603      	mov	r3, r0
+ 800108c:	2b00      	cmp	r3, #0
+ 800108e:	d106      	bne.n	800109e <SysTick_Handler+0x3e>
+ 8001090:	4b89      	ldr	r3, [pc, #548]	; (80012b8 <SysTick_Handler+0x258>)
+ 8001092:	681b      	ldr	r3, [r3, #0]
+ 8001094:	2b00      	cmp	r3, #0
+ 8001096:	d002      	beq.n	800109e <SysTick_Handler+0x3e>
 		init = 0;
- 800108c:	4b87      	ldr	r3, [pc, #540]	; (80012ac <SysTick_Handler+0x258>)
- 800108e:	2200      	movs	r2, #0
- 8001090:	601a      	str	r2, [r3, #0]
+ 8001098:	4b87      	ldr	r3, [pc, #540]	; (80012b8 <SysTick_Handler+0x258>)
+ 800109a:	2200      	movs	r2, #0
+ 800109c:	601a      	str	r2, [r3, #0]
 	}
 	if (expe == 2) {
- 8001092:	4b88      	ldr	r3, [pc, #544]	; (80012b4 <SysTick_Handler+0x260>)
- 8001094:	681b      	ldr	r3, [r3, #0]
- 8001096:	2b02      	cmp	r3, #2
- 8001098:	d12c      	bne.n	80010f4 <SysTick_Handler+0xa0>
+ 800109e:	4b88      	ldr	r3, [pc, #544]	; (80012c0 <SysTick_Handler+0x260>)
+ 80010a0:	681b      	ldr	r3, [r3, #0]
+ 80010a2:	2b02      	cmp	r3, #2
+ 80010a4:	d12c      	bne.n	8001100 <SysTick_Handler+0xa0>
 		GPIOC->ODR ^= (1 << 10);
- 800109a:	4b87      	ldr	r3, [pc, #540]	; (80012b8 <SysTick_Handler+0x264>)
- 800109c:	695b      	ldr	r3, [r3, #20]
- 800109e:	4a86      	ldr	r2, [pc, #536]	; (80012b8 <SysTick_Handler+0x264>)
- 80010a0:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 80010a4:	6153      	str	r3, [r2, #20]
+ 80010a6:	4b87      	ldr	r3, [pc, #540]	; (80012c4 <SysTick_Handler+0x264>)
+ 80010a8:	695b      	ldr	r3, [r3, #20]
+ 80010aa:	4a86      	ldr	r2, [pc, #536]	; (80012c4 <SysTick_Handler+0x264>)
+ 80010ac:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 80010b0:	6153      	str	r3, [r2, #20]
 		if (BLUE_BUTTON()) {
- 80010a6:	f7ff fce9 	bl	8000a7c <BLUE_BUTTON>
+ 80010b2:	f7ff fce3 	bl	8000a7c <BLUE_BUTTON>
 			//SystemClock_Config_exp2_blue();
 		}
 		if (LED_ON == 1 && millis >= 100) {
- 80010aa:	4b84      	ldr	r3, [pc, #528]	; (80012bc <SysTick_Handler+0x268>)
- 80010ac:	681b      	ldr	r3, [r3, #0]
- 80010ae:	2b01      	cmp	r3, #1
- 80010b0:	d10d      	bne.n	80010ce <SysTick_Handler+0x7a>
- 80010b2:	4b7d      	ldr	r3, [pc, #500]	; (80012a8 <SysTick_Handler+0x254>)
- 80010b4:	681b      	ldr	r3, [r3, #0]
- 80010b6:	2b63      	cmp	r3, #99	; 0x63
- 80010b8:	d909      	bls.n	80010ce <SysTick_Handler+0x7a>
+ 80010b6:	4b84      	ldr	r3, [pc, #528]	; (80012c8 <SysTick_Handler+0x268>)
+ 80010b8:	681b      	ldr	r3, [r3, #0]
+ 80010ba:	2b01      	cmp	r3, #1
+ 80010bc:	d10d      	bne.n	80010da <SysTick_Handler+0x7a>
+ 80010be:	4b7d      	ldr	r3, [pc, #500]	; (80012b4 <SysTick_Handler+0x254>)
+ 80010c0:	681b      	ldr	r3, [r3, #0]
+ 80010c2:	2b63      	cmp	r3, #99	; 0x63
+ 80010c4:	d909      	bls.n	80010da <SysTick_Handler+0x7a>
 			LED_GREEN(0);
- 80010ba:	2000      	movs	r0, #0
- 80010bc:	f7ff fcc8 	bl	8000a50 <LED_GREEN>
+ 80010c6:	2000      	movs	r0, #0
+ 80010c8:	f7ff fcc2 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 80010c0:	4b7e      	ldr	r3, [pc, #504]	; (80012bc <SysTick_Handler+0x268>)
- 80010c2:	2200      	movs	r2, #0
- 80010c4:	601a      	str	r2, [r3, #0]
+ 80010cc:	4b7e      	ldr	r3, [pc, #504]	; (80012c8 <SysTick_Handler+0x268>)
+ 80010ce:	2200      	movs	r2, #0
+ 80010d0:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80010c6:	4b78      	ldr	r3, [pc, #480]	; (80012a8 <SysTick_Handler+0x254>)
- 80010c8:	2200      	movs	r2, #0
- 80010ca:	601a      	str	r2, [r3, #0]
- 80010cc:	e012      	b.n	80010f4 <SysTick_Handler+0xa0>
+ 80010d2:	4b78      	ldr	r3, [pc, #480]	; (80012b4 <SysTick_Handler+0x254>)
+ 80010d4:	2200      	movs	r2, #0
+ 80010d6:	601a      	str	r2, [r3, #0]
+ 80010d8:	e012      	b.n	8001100 <SysTick_Handler+0xa0>
 		} else if (LED_ON == 0 && millis >= 1900) {
- 80010ce:	4b7b      	ldr	r3, [pc, #492]	; (80012bc <SysTick_Handler+0x268>)
- 80010d0:	681b      	ldr	r3, [r3, #0]
- 80010d2:	2b00      	cmp	r3, #0
- 80010d4:	d10e      	bne.n	80010f4 <SysTick_Handler+0xa0>
- 80010d6:	4b74      	ldr	r3, [pc, #464]	; (80012a8 <SysTick_Handler+0x254>)
- 80010d8:	681b      	ldr	r3, [r3, #0]
- 80010da:	f240 726b 	movw	r2, #1899	; 0x76b
- 80010de:	4293      	cmp	r3, r2
- 80010e0:	d908      	bls.n	80010f4 <SysTick_Handler+0xa0>
+ 80010da:	4b7b      	ldr	r3, [pc, #492]	; (80012c8 <SysTick_Handler+0x268>)
+ 80010dc:	681b      	ldr	r3, [r3, #0]
+ 80010de:	2b00      	cmp	r3, #0
+ 80010e0:	d10e      	bne.n	8001100 <SysTick_Handler+0xa0>
+ 80010e2:	4b74      	ldr	r3, [pc, #464]	; (80012b4 <SysTick_Handler+0x254>)
+ 80010e4:	681b      	ldr	r3, [r3, #0]
+ 80010e6:	f240 726b 	movw	r2, #1899	; 0x76b
+ 80010ea:	4293      	cmp	r3, r2
+ 80010ec:	d908      	bls.n	8001100 <SysTick_Handler+0xa0>
 			LED_GREEN(1);
- 80010e2:	2001      	movs	r0, #1
- 80010e4:	f7ff fcb4 	bl	8000a50 <LED_GREEN>
+ 80010ee:	2001      	movs	r0, #1
+ 80010f0:	f7ff fcae 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 80010e8:	4b74      	ldr	r3, [pc, #464]	; (80012bc <SysTick_Handler+0x268>)
- 80010ea:	2201      	movs	r2, #1
- 80010ec:	601a      	str	r2, [r3, #0]
+ 80010f4:	4b74      	ldr	r3, [pc, #464]	; (80012c8 <SysTick_Handler+0x268>)
+ 80010f6:	2201      	movs	r2, #1
+ 80010f8:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80010ee:	4b6e      	ldr	r3, [pc, #440]	; (80012a8 <SysTick_Handler+0x254>)
- 80010f0:	2200      	movs	r2, #0
- 80010f2:	601a      	str	r2, [r3, #0]
+ 80010fa:	4b6e      	ldr	r3, [pc, #440]	; (80012b4 <SysTick_Handler+0x254>)
+ 80010fc:	2200      	movs	r2, #0
+ 80010fe:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 3) {
- 80010f4:	4b6f      	ldr	r3, [pc, #444]	; (80012b4 <SysTick_Handler+0x260>)
- 80010f6:	681b      	ldr	r3, [r3, #0]
- 80010f8:	2b03      	cmp	r3, #3
- 80010fa:	d132      	bne.n	8001162 <SysTick_Handler+0x10e>
+ 8001100:	4b6f      	ldr	r3, [pc, #444]	; (80012c0 <SysTick_Handler+0x260>)
+ 8001102:	681b      	ldr	r3, [r3, #0]
+ 8001104:	2b03      	cmp	r3, #3
+ 8001106:	d132      	bne.n	800116e <SysTick_Handler+0x10e>
 		GPIOC->ODR ^= (1 << 10);
- 80010fc:	4b6e      	ldr	r3, [pc, #440]	; (80012b8 <SysTick_Handler+0x264>)
- 80010fe:	695b      	ldr	r3, [r3, #20]
- 8001100:	4a6d      	ldr	r2, [pc, #436]	; (80012b8 <SysTick_Handler+0x264>)
- 8001102:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 8001106:	6153      	str	r3, [r2, #20]
+ 8001108:	4b6e      	ldr	r3, [pc, #440]	; (80012c4 <SysTick_Handler+0x264>)
+ 800110a:	695b      	ldr	r3, [r3, #20]
+ 800110c:	4a6d      	ldr	r2, [pc, #436]	; (80012c4 <SysTick_Handler+0x264>)
+ 800110e:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 8001112:	6153      	str	r3, [r2, #20]
 		if (BLUE_BUTTON())
- 8001108:	f7ff fcb8 	bl	8000a7c <BLUE_BUTTON>
- 800110c:	4603      	mov	r3, r0
- 800110e:	2b00      	cmp	r3, #0
- 8001110:	d002      	beq.n	8001118 <SysTick_Handler+0xc4>
+ 8001114:	f7ff fcb2 	bl	8000a7c <BLUE_BUTTON>
+ 8001118:	4603      	mov	r3, r0
+ 800111a:	2b00      	cmp	r3, #0
+ 800111c:	d002      	beq.n	8001124 <SysTick_Handler+0xc4>
 			Sleep_State = 1;
- 8001112:	4b6b      	ldr	r3, [pc, #428]	; (80012c0 <SysTick_Handler+0x26c>)
- 8001114:	2201      	movs	r2, #1
- 8001116:	601a      	str	r2, [r3, #0]
+ 800111e:	4b6b      	ldr	r3, [pc, #428]	; (80012cc <SysTick_Handler+0x26c>)
+ 8001120:	2201      	movs	r2, #1
+ 8001122:	601a      	str	r2, [r3, #0]
 		if (LED_ON == 1 && millis >= 150) {
- 8001118:	4b68      	ldr	r3, [pc, #416]	; (80012bc <SysTick_Handler+0x268>)
- 800111a:	681b      	ldr	r3, [r3, #0]
- 800111c:	2b01      	cmp	r3, #1
- 800111e:	d10d      	bne.n	800113c <SysTick_Handler+0xe8>
- 8001120:	4b61      	ldr	r3, [pc, #388]	; (80012a8 <SysTick_Handler+0x254>)
- 8001122:	681b      	ldr	r3, [r3, #0]
- 8001124:	2b95      	cmp	r3, #149	; 0x95
- 8001126:	d909      	bls.n	800113c <SysTick_Handler+0xe8>
+ 8001124:	4b68      	ldr	r3, [pc, #416]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001126:	681b      	ldr	r3, [r3, #0]
+ 8001128:	2b01      	cmp	r3, #1
+ 800112a:	d10d      	bne.n	8001148 <SysTick_Handler+0xe8>
+ 800112c:	4b61      	ldr	r3, [pc, #388]	; (80012b4 <SysTick_Handler+0x254>)
+ 800112e:	681b      	ldr	r3, [r3, #0]
+ 8001130:	2b95      	cmp	r3, #149	; 0x95
+ 8001132:	d909      	bls.n	8001148 <SysTick_Handler+0xe8>
 			LED_GREEN(0);
- 8001128:	2000      	movs	r0, #0
- 800112a:	f7ff fc91 	bl	8000a50 <LED_GREEN>
+ 8001134:	2000      	movs	r0, #0
+ 8001136:	f7ff fc8b 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 800112e:	4b63      	ldr	r3, [pc, #396]	; (80012bc <SysTick_Handler+0x268>)
- 8001130:	2200      	movs	r2, #0
- 8001132:	601a      	str	r2, [r3, #0]
+ 800113a:	4b63      	ldr	r3, [pc, #396]	; (80012c8 <SysTick_Handler+0x268>)
+ 800113c:	2200      	movs	r2, #0
+ 800113e:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 8001134:	4b5c      	ldr	r3, [pc, #368]	; (80012a8 <SysTick_Handler+0x254>)
- 8001136:	2200      	movs	r2, #0
- 8001138:	601a      	str	r2, [r3, #0]
- 800113a:	e012      	b.n	8001162 <SysTick_Handler+0x10e>
+ 8001140:	4b5c      	ldr	r3, [pc, #368]	; (80012b4 <SysTick_Handler+0x254>)
+ 8001142:	2200      	movs	r2, #0
+ 8001144:	601a      	str	r2, [r3, #0]
+ 8001146:	e012      	b.n	800116e <SysTick_Handler+0x10e>
 		} else if (LED_ON == 0 && millis >= 1850) {
- 800113c:	4b5f      	ldr	r3, [pc, #380]	; (80012bc <SysTick_Handler+0x268>)
- 800113e:	681b      	ldr	r3, [r3, #0]
- 8001140:	2b00      	cmp	r3, #0
- 8001142:	d10e      	bne.n	8001162 <SysTick_Handler+0x10e>
- 8001144:	4b58      	ldr	r3, [pc, #352]	; (80012a8 <SysTick_Handler+0x254>)
- 8001146:	681b      	ldr	r3, [r3, #0]
- 8001148:	f240 7239 	movw	r2, #1849	; 0x739
- 800114c:	4293      	cmp	r3, r2
- 800114e:	d908      	bls.n	8001162 <SysTick_Handler+0x10e>
+ 8001148:	4b5f      	ldr	r3, [pc, #380]	; (80012c8 <SysTick_Handler+0x268>)
+ 800114a:	681b      	ldr	r3, [r3, #0]
+ 800114c:	2b00      	cmp	r3, #0
+ 800114e:	d10e      	bne.n	800116e <SysTick_Handler+0x10e>
+ 8001150:	4b58      	ldr	r3, [pc, #352]	; (80012b4 <SysTick_Handler+0x254>)
+ 8001152:	681b      	ldr	r3, [r3, #0]
+ 8001154:	f240 7239 	movw	r2, #1849	; 0x739
+ 8001158:	4293      	cmp	r3, r2
+ 800115a:	d908      	bls.n	800116e <SysTick_Handler+0x10e>
 			LED_GREEN(1);
- 8001150:	2001      	movs	r0, #1
- 8001152:	f7ff fc7d 	bl	8000a50 <LED_GREEN>
+ 800115c:	2001      	movs	r0, #1
+ 800115e:	f7ff fc77 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 8001156:	4b59      	ldr	r3, [pc, #356]	; (80012bc <SysTick_Handler+0x268>)
- 8001158:	2201      	movs	r2, #1
- 800115a:	601a      	str	r2, [r3, #0]
+ 8001162:	4b59      	ldr	r3, [pc, #356]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001164:	2201      	movs	r2, #1
+ 8001166:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 800115c:	4b52      	ldr	r3, [pc, #328]	; (80012a8 <SysTick_Handler+0x254>)
- 800115e:	2200      	movs	r2, #0
- 8001160:	601a      	str	r2, [r3, #0]
+ 8001168:	4b52      	ldr	r3, [pc, #328]	; (80012b4 <SysTick_Handler+0x254>)
+ 800116a:	2200      	movs	r2, #0
+ 800116c:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 4) { //expe3 bis car non traité
- 8001162:	4b54      	ldr	r3, [pc, #336]	; (80012b4 <SysTick_Handler+0x260>)
- 8001164:	681b      	ldr	r3, [r3, #0]
- 8001166:	2b04      	cmp	r3, #4
- 8001168:	d132      	bne.n	80011d0 <SysTick_Handler+0x17c>
+ 800116e:	4b54      	ldr	r3, [pc, #336]	; (80012c0 <SysTick_Handler+0x260>)
+ 8001170:	681b      	ldr	r3, [r3, #0]
+ 8001172:	2b04      	cmp	r3, #4
+ 8001174:	d132      	bne.n	80011dc <SysTick_Handler+0x17c>
 		GPIOC->ODR ^= (1 << 10);
- 800116a:	4b53      	ldr	r3, [pc, #332]	; (80012b8 <SysTick_Handler+0x264>)
- 800116c:	695b      	ldr	r3, [r3, #20]
- 800116e:	4a52      	ldr	r2, [pc, #328]	; (80012b8 <SysTick_Handler+0x264>)
- 8001170:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 8001174:	6153      	str	r3, [r2, #20]
+ 8001176:	4b53      	ldr	r3, [pc, #332]	; (80012c4 <SysTick_Handler+0x264>)
+ 8001178:	695b      	ldr	r3, [r3, #20]
+ 800117a:	4a52      	ldr	r2, [pc, #328]	; (80012c4 <SysTick_Handler+0x264>)
+ 800117c:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 8001180:	6153      	str	r3, [r2, #20]
 		if (BLUE_BUTTON())
- 8001176:	f7ff fc81 	bl	8000a7c <BLUE_BUTTON>
- 800117a:	4603      	mov	r3, r0
- 800117c:	2b00      	cmp	r3, #0
- 800117e:	d002      	beq.n	8001186 <SysTick_Handler+0x132>
+ 8001182:	f7ff fc7b 	bl	8000a7c <BLUE_BUTTON>
+ 8001186:	4603      	mov	r3, r0
+ 8001188:	2b00      	cmp	r3, #0
+ 800118a:	d002      	beq.n	8001192 <SysTick_Handler+0x132>
 			Sleep_State = 1;
- 8001180:	4b4f      	ldr	r3, [pc, #316]	; (80012c0 <SysTick_Handler+0x26c>)
- 8001182:	2201      	movs	r2, #1
- 8001184:	601a      	str	r2, [r3, #0]
+ 800118c:	4b4f      	ldr	r3, [pc, #316]	; (80012cc <SysTick_Handler+0x26c>)
+ 800118e:	2201      	movs	r2, #1
+ 8001190:	601a      	str	r2, [r3, #0]
 		if (LED_ON == 1 && millis >= 150) {
- 8001186:	4b4d      	ldr	r3, [pc, #308]	; (80012bc <SysTick_Handler+0x268>)
- 8001188:	681b      	ldr	r3, [r3, #0]
- 800118a:	2b01      	cmp	r3, #1
- 800118c:	d10d      	bne.n	80011aa <SysTick_Handler+0x156>
- 800118e:	4b46      	ldr	r3, [pc, #280]	; (80012a8 <SysTick_Handler+0x254>)
- 8001190:	681b      	ldr	r3, [r3, #0]
- 8001192:	2b95      	cmp	r3, #149	; 0x95
- 8001194:	d909      	bls.n	80011aa <SysTick_Handler+0x156>
+ 8001192:	4b4d      	ldr	r3, [pc, #308]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001194:	681b      	ldr	r3, [r3, #0]
+ 8001196:	2b01      	cmp	r3, #1
+ 8001198:	d10d      	bne.n	80011b6 <SysTick_Handler+0x156>
+ 800119a:	4b46      	ldr	r3, [pc, #280]	; (80012b4 <SysTick_Handler+0x254>)
+ 800119c:	681b      	ldr	r3, [r3, #0]
+ 800119e:	2b95      	cmp	r3, #149	; 0x95
+ 80011a0:	d909      	bls.n	80011b6 <SysTick_Handler+0x156>
 			LED_GREEN(0);
- 8001196:	2000      	movs	r0, #0
- 8001198:	f7ff fc5a 	bl	8000a50 <LED_GREEN>
+ 80011a2:	2000      	movs	r0, #0
+ 80011a4:	f7ff fc54 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 800119c:	4b47      	ldr	r3, [pc, #284]	; (80012bc <SysTick_Handler+0x268>)
- 800119e:	2200      	movs	r2, #0
- 80011a0:	601a      	str	r2, [r3, #0]
+ 80011a8:	4b47      	ldr	r3, [pc, #284]	; (80012c8 <SysTick_Handler+0x268>)
+ 80011aa:	2200      	movs	r2, #0
+ 80011ac:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80011a2:	4b41      	ldr	r3, [pc, #260]	; (80012a8 <SysTick_Handler+0x254>)
- 80011a4:	2200      	movs	r2, #0
- 80011a6:	601a      	str	r2, [r3, #0]
- 80011a8:	e012      	b.n	80011d0 <SysTick_Handler+0x17c>
+ 80011ae:	4b41      	ldr	r3, [pc, #260]	; (80012b4 <SysTick_Handler+0x254>)
+ 80011b0:	2200      	movs	r2, #0
+ 80011b2:	601a      	str	r2, [r3, #0]
+ 80011b4:	e012      	b.n	80011dc <SysTick_Handler+0x17c>
 		} else if (LED_ON == 0 && millis >= 1850) {
- 80011aa:	4b44      	ldr	r3, [pc, #272]	; (80012bc <SysTick_Handler+0x268>)
- 80011ac:	681b      	ldr	r3, [r3, #0]
- 80011ae:	2b00      	cmp	r3, #0
- 80011b0:	d10e      	bne.n	80011d0 <SysTick_Handler+0x17c>
- 80011b2:	4b3d      	ldr	r3, [pc, #244]	; (80012a8 <SysTick_Handler+0x254>)
- 80011b4:	681b      	ldr	r3, [r3, #0]
- 80011b6:	f240 7239 	movw	r2, #1849	; 0x739
- 80011ba:	4293      	cmp	r3, r2
- 80011bc:	d908      	bls.n	80011d0 <SysTick_Handler+0x17c>
+ 80011b6:	4b44      	ldr	r3, [pc, #272]	; (80012c8 <SysTick_Handler+0x268>)
+ 80011b8:	681b      	ldr	r3, [r3, #0]
+ 80011ba:	2b00      	cmp	r3, #0
+ 80011bc:	d10e      	bne.n	80011dc <SysTick_Handler+0x17c>
+ 80011be:	4b3d      	ldr	r3, [pc, #244]	; (80012b4 <SysTick_Handler+0x254>)
+ 80011c0:	681b      	ldr	r3, [r3, #0]
+ 80011c2:	f240 7239 	movw	r2, #1849	; 0x739
+ 80011c6:	4293      	cmp	r3, r2
+ 80011c8:	d908      	bls.n	80011dc <SysTick_Handler+0x17c>
 			LED_GREEN(1);
- 80011be:	2001      	movs	r0, #1
- 80011c0:	f7ff fc46 	bl	8000a50 <LED_GREEN>
+ 80011ca:	2001      	movs	r0, #1
+ 80011cc:	f7ff fc40 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 80011c4:	4b3d      	ldr	r3, [pc, #244]	; (80012bc <SysTick_Handler+0x268>)
- 80011c6:	2201      	movs	r2, #1
- 80011c8:	601a      	str	r2, [r3, #0]
+ 80011d0:	4b3d      	ldr	r3, [pc, #244]	; (80012c8 <SysTick_Handler+0x268>)
+ 80011d2:	2201      	movs	r2, #1
+ 80011d4:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80011ca:	4b37      	ldr	r3, [pc, #220]	; (80012a8 <SysTick_Handler+0x254>)
- 80011cc:	2200      	movs	r2, #0
- 80011ce:	601a      	str	r2, [r3, #0]
+ 80011d6:	4b37      	ldr	r3, [pc, #220]	; (80012b4 <SysTick_Handler+0x254>)
+ 80011d8:	2200      	movs	r2, #0
+ 80011da:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 5) {
- 80011d0:	4b38      	ldr	r3, [pc, #224]	; (80012b4 <SysTick_Handler+0x260>)
- 80011d2:	681b      	ldr	r3, [r3, #0]
- 80011d4:	2b05      	cmp	r3, #5
- 80011d6:	d13a      	bne.n	800124e <SysTick_Handler+0x1fa>
+ 80011dc:	4b38      	ldr	r3, [pc, #224]	; (80012c0 <SysTick_Handler+0x260>)
+ 80011de:	681b      	ldr	r3, [r3, #0]
+ 80011e0:	2b05      	cmp	r3, #5
+ 80011e2:	d13a      	bne.n	800125a <SysTick_Handler+0x1fa>
 		GPIOC->ODR ^= (1 << 10);
- 80011d8:	4b37      	ldr	r3, [pc, #220]	; (80012b8 <SysTick_Handler+0x264>)
- 80011da:	695b      	ldr	r3, [r3, #20]
- 80011dc:	4a36      	ldr	r2, [pc, #216]	; (80012b8 <SysTick_Handler+0x264>)
- 80011de:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 80011e2:	6153      	str	r3, [r2, #20]
+ 80011e4:	4b37      	ldr	r3, [pc, #220]	; (80012c4 <SysTick_Handler+0x264>)
+ 80011e6:	695b      	ldr	r3, [r3, #20]
+ 80011e8:	4a36      	ldr	r2, [pc, #216]	; (80012c4 <SysTick_Handler+0x264>)
+ 80011ea:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 80011ee:	6153      	str	r3, [r2, #20]
 		if (blue_mode == 1) {
- 80011e4:	4b32      	ldr	r3, [pc, #200]	; (80012b0 <SysTick_Handler+0x25c>)
- 80011e6:	681b      	ldr	r3, [r3, #0]
- 80011e8:	2b01      	cmp	r3, #1
- 80011ea:	d10b      	bne.n	8001204 <SysTick_Handler+0x1b0>
+ 80011f0:	4b32      	ldr	r3, [pc, #200]	; (80012bc <SysTick_Handler+0x25c>)
+ 80011f2:	681b      	ldr	r3, [r3, #0]
+ 80011f4:	2b01      	cmp	r3, #1
+ 80011f6:	d10b      	bne.n	8001210 <SysTick_Handler+0x1b0>
 			LL_LPM_EnableDeepSleep();
- 80011ec:	f7ff fd7e 	bl	8000cec <LL_LPM_EnableDeepSleep>
+ 80011f8:	f7ff fd78 	bl	8000cec <LL_LPM_EnableDeepSleep>
 			LL_PWR_SetPowerMode(LL_PWR_MODE_STOP0); //stop0
- 80011f0:	2000      	movs	r0, #0
- 80011f2:	f7ff fd9b 	bl	8000d2c <LL_PWR_SetPowerMode>
+ 80011fc:	2000      	movs	r0, #0
+ 80011fe:	f7ff fd95 	bl	8000d2c <LL_PWR_SetPowerMode>
 			RTC_wakeup_init_from_stop(7);
- 80011f6:	2007      	movs	r0, #7
- 80011f8:	f000 f96d 	bl	80014d6 <RTC_wakeup_init_from_stop>
+ 8001202:	2007      	movs	r0, #7
+ 8001204:	f000 f96d 	bl	80014e2 <RTC_wakeup_init_from_stop>
 			__WFI();
- 80011fc:	bf30      	wfi
+ 8001208:	bf30      	wfi
 			blue_mode = 0;
- 80011fe:	4b2c      	ldr	r3, [pc, #176]	; (80012b0 <SysTick_Handler+0x25c>)
- 8001200:	2200      	movs	r2, #0
- 8001202:	601a      	str	r2, [r3, #0]
+ 800120a:	4b2c      	ldr	r3, [pc, #176]	; (80012bc <SysTick_Handler+0x25c>)
+ 800120c:	2200      	movs	r2, #0
+ 800120e:	601a      	str	r2, [r3, #0]
 		}
 		if (LED_ON == 1 && millis >= 250) {
- 8001204:	4b2d      	ldr	r3, [pc, #180]	; (80012bc <SysTick_Handler+0x268>)
- 8001206:	681b      	ldr	r3, [r3, #0]
- 8001208:	2b01      	cmp	r3, #1
- 800120a:	d10d      	bne.n	8001228 <SysTick_Handler+0x1d4>
- 800120c:	4b26      	ldr	r3, [pc, #152]	; (80012a8 <SysTick_Handler+0x254>)
- 800120e:	681b      	ldr	r3, [r3, #0]
- 8001210:	2bf9      	cmp	r3, #249	; 0xf9
- 8001212:	d909      	bls.n	8001228 <SysTick_Handler+0x1d4>
+ 8001210:	4b2d      	ldr	r3, [pc, #180]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001212:	681b      	ldr	r3, [r3, #0]
+ 8001214:	2b01      	cmp	r3, #1
+ 8001216:	d10d      	bne.n	8001234 <SysTick_Handler+0x1d4>
+ 8001218:	4b26      	ldr	r3, [pc, #152]	; (80012b4 <SysTick_Handler+0x254>)
+ 800121a:	681b      	ldr	r3, [r3, #0]
+ 800121c:	2bf9      	cmp	r3, #249	; 0xf9
+ 800121e:	d909      	bls.n	8001234 <SysTick_Handler+0x1d4>
 			LED_GREEN(0);
- 8001214:	2000      	movs	r0, #0
- 8001216:	f7ff fc1b 	bl	8000a50 <LED_GREEN>
+ 8001220:	2000      	movs	r0, #0
+ 8001222:	f7ff fc15 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 800121a:	4b28      	ldr	r3, [pc, #160]	; (80012bc <SysTick_Handler+0x268>)
- 800121c:	2200      	movs	r2, #0
- 800121e:	601a      	str	r2, [r3, #0]
+ 8001226:	4b28      	ldr	r3, [pc, #160]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001228:	2200      	movs	r2, #0
+ 800122a:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 8001220:	4b21      	ldr	r3, [pc, #132]	; (80012a8 <SysTick_Handler+0x254>)
- 8001222:	2200      	movs	r2, #0
- 8001224:	601a      	str	r2, [r3, #0]
- 8001226:	e012      	b.n	800124e <SysTick_Handler+0x1fa>
+ 800122c:	4b21      	ldr	r3, [pc, #132]	; (80012b4 <SysTick_Handler+0x254>)
+ 800122e:	2200      	movs	r2, #0
+ 8001230:	601a      	str	r2, [r3, #0]
+ 8001232:	e012      	b.n	800125a <SysTick_Handler+0x1fa>
 		} else if (LED_ON == 0 && millis >= 1750) {
- 8001228:	4b24      	ldr	r3, [pc, #144]	; (80012bc <SysTick_Handler+0x268>)
- 800122a:	681b      	ldr	r3, [r3, #0]
- 800122c:	2b00      	cmp	r3, #0
- 800122e:	d10e      	bne.n	800124e <SysTick_Handler+0x1fa>
- 8001230:	4b1d      	ldr	r3, [pc, #116]	; (80012a8 <SysTick_Handler+0x254>)
- 8001232:	681b      	ldr	r3, [r3, #0]
- 8001234:	f240 62d5 	movw	r2, #1749	; 0x6d5
- 8001238:	4293      	cmp	r3, r2
- 800123a:	d908      	bls.n	800124e <SysTick_Handler+0x1fa>
+ 8001234:	4b24      	ldr	r3, [pc, #144]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001236:	681b      	ldr	r3, [r3, #0]
+ 8001238:	2b00      	cmp	r3, #0
+ 800123a:	d10e      	bne.n	800125a <SysTick_Handler+0x1fa>
+ 800123c:	4b1d      	ldr	r3, [pc, #116]	; (80012b4 <SysTick_Handler+0x254>)
+ 800123e:	681b      	ldr	r3, [r3, #0]
+ 8001240:	f240 62d5 	movw	r2, #1749	; 0x6d5
+ 8001244:	4293      	cmp	r3, r2
+ 8001246:	d908      	bls.n	800125a <SysTick_Handler+0x1fa>
 			LED_GREEN(1);
- 800123c:	2001      	movs	r0, #1
- 800123e:	f7ff fc07 	bl	8000a50 <LED_GREEN>
+ 8001248:	2001      	movs	r0, #1
+ 800124a:	f7ff fc01 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 8001242:	4b1e      	ldr	r3, [pc, #120]	; (80012bc <SysTick_Handler+0x268>)
- 8001244:	2201      	movs	r2, #1
- 8001246:	601a      	str	r2, [r3, #0]
+ 800124e:	4b1e      	ldr	r3, [pc, #120]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001250:	2201      	movs	r2, #1
+ 8001252:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 8001248:	4b17      	ldr	r3, [pc, #92]	; (80012a8 <SysTick_Handler+0x254>)
- 800124a:	2200      	movs	r2, #0
- 800124c:	601a      	str	r2, [r3, #0]
+ 8001254:	4b17      	ldr	r3, [pc, #92]	; (80012b4 <SysTick_Handler+0x254>)
+ 8001256:	2200      	movs	r2, #0
+ 8001258:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 6) {
- 800124e:	4b19      	ldr	r3, [pc, #100]	; (80012b4 <SysTick_Handler+0x260>)
- 8001250:	681b      	ldr	r3, [r3, #0]
- 8001252:	2b06      	cmp	r3, #6
- 8001254:	d149      	bne.n	80012ea <SysTick_Handler+0x296>
+ 800125a:	4b19      	ldr	r3, [pc, #100]	; (80012c0 <SysTick_Handler+0x260>)
+ 800125c:	681b      	ldr	r3, [r3, #0]
+ 800125e:	2b06      	cmp	r3, #6
+ 8001260:	d149      	bne.n	80012f6 <SysTick_Handler+0x296>
 		GPIOC->ODR ^= (1 << 10);
- 8001256:	4b18      	ldr	r3, [pc, #96]	; (80012b8 <SysTick_Handler+0x264>)
- 8001258:	695b      	ldr	r3, [r3, #20]
- 800125a:	4a17      	ldr	r2, [pc, #92]	; (80012b8 <SysTick_Handler+0x264>)
- 800125c:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 8001260:	6153      	str	r3, [r2, #20]
+ 8001262:	4b18      	ldr	r3, [pc, #96]	; (80012c4 <SysTick_Handler+0x264>)
+ 8001264:	695b      	ldr	r3, [r3, #20]
+ 8001266:	4a17      	ldr	r2, [pc, #92]	; (80012c4 <SysTick_Handler+0x264>)
+ 8001268:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 800126c:	6153      	str	r3, [r2, #20]
 		if (blue_mode == 1) {
- 8001262:	4b13      	ldr	r3, [pc, #76]	; (80012b0 <SysTick_Handler+0x25c>)
- 8001264:	681b      	ldr	r3, [r3, #0]
- 8001266:	2b01      	cmp	r3, #1
- 8001268:	d10b      	bne.n	8001282 <SysTick_Handler+0x22e>
+ 800126e:	4b13      	ldr	r3, [pc, #76]	; (80012bc <SysTick_Handler+0x25c>)
+ 8001270:	681b      	ldr	r3, [r3, #0]
+ 8001272:	2b01      	cmp	r3, #1
+ 8001274:	d10b      	bne.n	800128e <SysTick_Handler+0x22e>
 			LL_LPM_EnableDeepSleep();
- 800126a:	f7ff fd3f 	bl	8000cec <LL_LPM_EnableDeepSleep>
+ 8001276:	f7ff fd39 	bl	8000cec <LL_LPM_EnableDeepSleep>
 			LL_PWR_SetPowerMode(LL_PWR_MODE_STOP1);
- 800126e:	2001      	movs	r0, #1
- 8001270:	f7ff fd5c 	bl	8000d2c <LL_PWR_SetPowerMode>
+ 800127a:	2001      	movs	r0, #1
+ 800127c:	f7ff fd56 	bl	8000d2c <LL_PWR_SetPowerMode>
 			RTC_wakeup_init_from_stop(7);
- 8001274:	2007      	movs	r0, #7
- 8001276:	f000 f92e 	bl	80014d6 <RTC_wakeup_init_from_stop>
+ 8001280:	2007      	movs	r0, #7
+ 8001282:	f000 f92e 	bl	80014e2 <RTC_wakeup_init_from_stop>
 			__WFI();
- 800127a:	bf30      	wfi
+ 8001286:	bf30      	wfi
 			blue_mode = 0;
- 800127c:	4b0c      	ldr	r3, [pc, #48]	; (80012b0 <SysTick_Handler+0x25c>)
- 800127e:	2200      	movs	r2, #0
- 8001280:	601a      	str	r2, [r3, #0]
+ 8001288:	4b0c      	ldr	r3, [pc, #48]	; (80012bc <SysTick_Handler+0x25c>)
+ 800128a:	2200      	movs	r2, #0
+ 800128c:	601a      	str	r2, [r3, #0]
 		}
 		if (LED_ON == 1 && millis >= 300) {
- 8001282:	4b0e      	ldr	r3, [pc, #56]	; (80012bc <SysTick_Handler+0x268>)
- 8001284:	681b      	ldr	r3, [r3, #0]
- 8001286:	2b01      	cmp	r3, #1
- 8001288:	d11c      	bne.n	80012c4 <SysTick_Handler+0x270>
- 800128a:	4b07      	ldr	r3, [pc, #28]	; (80012a8 <SysTick_Handler+0x254>)
- 800128c:	681b      	ldr	r3, [r3, #0]
- 800128e:	f5b3 7f96 	cmp.w	r3, #300	; 0x12c
- 8001292:	d317      	bcc.n	80012c4 <SysTick_Handler+0x270>
+ 800128e:	4b0e      	ldr	r3, [pc, #56]	; (80012c8 <SysTick_Handler+0x268>)
+ 8001290:	681b      	ldr	r3, [r3, #0]
+ 8001292:	2b01      	cmp	r3, #1
+ 8001294:	d11c      	bne.n	80012d0 <SysTick_Handler+0x270>
+ 8001296:	4b07      	ldr	r3, [pc, #28]	; (80012b4 <SysTick_Handler+0x254>)
+ 8001298:	681b      	ldr	r3, [r3, #0]
+ 800129a:	f5b3 7f96 	cmp.w	r3, #300	; 0x12c
+ 800129e:	d317      	bcc.n	80012d0 <SysTick_Handler+0x270>
 			LED_GREEN(0);
- 8001294:	2000      	movs	r0, #0
- 8001296:	f7ff fbdb 	bl	8000a50 <LED_GREEN>
+ 80012a0:	2000      	movs	r0, #0
+ 80012a2:	f7ff fbd5 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 800129a:	4b08      	ldr	r3, [pc, #32]	; (80012bc <SysTick_Handler+0x268>)
- 800129c:	2200      	movs	r2, #0
- 800129e:	601a      	str	r2, [r3, #0]
+ 80012a6:	4b08      	ldr	r3, [pc, #32]	; (80012c8 <SysTick_Handler+0x268>)
+ 80012a8:	2200      	movs	r2, #0
+ 80012aa:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80012a0:	4b01      	ldr	r3, [pc, #4]	; (80012a8 <SysTick_Handler+0x254>)
- 80012a2:	2200      	movs	r2, #0
- 80012a4:	601a      	str	r2, [r3, #0]
- 80012a6:	e020      	b.n	80012ea <SysTick_Handler+0x296>
- 80012a8:	20000024 	.word	0x20000024
- 80012ac:	20000000 	.word	0x20000000
- 80012b0:	20000034 	.word	0x20000034
- 80012b4:	20000030 	.word	0x20000030
- 80012b8:	48000800 	.word	0x48000800
- 80012bc:	20000028 	.word	0x20000028
- 80012c0:	2000002c 	.word	0x2000002c
+ 80012ac:	4b01      	ldr	r3, [pc, #4]	; (80012b4 <SysTick_Handler+0x254>)
+ 80012ae:	2200      	movs	r2, #0
+ 80012b0:	601a      	str	r2, [r3, #0]
+ 80012b2:	e020      	b.n	80012f6 <SysTick_Handler+0x296>
+ 80012b4:	20000024 	.word	0x20000024
+ 80012b8:	20000000 	.word	0x20000000
+ 80012bc:	20000034 	.word	0x20000034
+ 80012c0:	20000030 	.word	0x20000030
+ 80012c4:	48000800 	.word	0x48000800
+ 80012c8:	20000028 	.word	0x20000028
+ 80012cc:	2000002c 	.word	0x2000002c
 		} else if (LED_ON == 0 && millis >= 1700) {
- 80012c4:	4b61      	ldr	r3, [pc, #388]	; (800144c <SysTick_Handler+0x3f8>)
- 80012c6:	681b      	ldr	r3, [r3, #0]
- 80012c8:	2b00      	cmp	r3, #0
- 80012ca:	d10e      	bne.n	80012ea <SysTick_Handler+0x296>
- 80012cc:	4b60      	ldr	r3, [pc, #384]	; (8001450 <SysTick_Handler+0x3fc>)
- 80012ce:	681b      	ldr	r3, [r3, #0]
- 80012d0:	f240 62a3 	movw	r2, #1699	; 0x6a3
- 80012d4:	4293      	cmp	r3, r2
- 80012d6:	d908      	bls.n	80012ea <SysTick_Handler+0x296>
+ 80012d0:	4b61      	ldr	r3, [pc, #388]	; (8001458 <SysTick_Handler+0x3f8>)
+ 80012d2:	681b      	ldr	r3, [r3, #0]
+ 80012d4:	2b00      	cmp	r3, #0
+ 80012d6:	d10e      	bne.n	80012f6 <SysTick_Handler+0x296>
+ 80012d8:	4b60      	ldr	r3, [pc, #384]	; (800145c <SysTick_Handler+0x3fc>)
+ 80012da:	681b      	ldr	r3, [r3, #0]
+ 80012dc:	f240 62a3 	movw	r2, #1699	; 0x6a3
+ 80012e0:	4293      	cmp	r3, r2
+ 80012e2:	d908      	bls.n	80012f6 <SysTick_Handler+0x296>
 			LED_GREEN(1);
- 80012d8:	2001      	movs	r0, #1
- 80012da:	f7ff fbb9 	bl	8000a50 <LED_GREEN>
+ 80012e4:	2001      	movs	r0, #1
+ 80012e6:	f7ff fbb3 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 80012de:	4b5b      	ldr	r3, [pc, #364]	; (800144c <SysTick_Handler+0x3f8>)
- 80012e0:	2201      	movs	r2, #1
- 80012e2:	601a      	str	r2, [r3, #0]
+ 80012ea:	4b5b      	ldr	r3, [pc, #364]	; (8001458 <SysTick_Handler+0x3f8>)
+ 80012ec:	2201      	movs	r2, #1
+ 80012ee:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80012e4:	4b5a      	ldr	r3, [pc, #360]	; (8001450 <SysTick_Handler+0x3fc>)
- 80012e6:	2200      	movs	r2, #0
- 80012e8:	601a      	str	r2, [r3, #0]
+ 80012f0:	4b5a      	ldr	r3, [pc, #360]	; (800145c <SysTick_Handler+0x3fc>)
+ 80012f2:	2200      	movs	r2, #0
+ 80012f4:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 7) {
- 80012ea:	4b5a      	ldr	r3, [pc, #360]	; (8001454 <SysTick_Handler+0x400>)
- 80012ec:	681b      	ldr	r3, [r3, #0]
- 80012ee:	2b07      	cmp	r3, #7
- 80012f0:	d13b      	bne.n	800136a <SysTick_Handler+0x316>
+ 80012f6:	4b5a      	ldr	r3, [pc, #360]	; (8001460 <SysTick_Handler+0x400>)
+ 80012f8:	681b      	ldr	r3, [r3, #0]
+ 80012fa:	2b07      	cmp	r3, #7
+ 80012fc:	d13b      	bne.n	8001376 <SysTick_Handler+0x316>
 		GPIOC->ODR ^= (1 << 10);
- 80012f2:	4b59      	ldr	r3, [pc, #356]	; (8001458 <SysTick_Handler+0x404>)
- 80012f4:	695b      	ldr	r3, [r3, #20]
- 80012f6:	4a58      	ldr	r2, [pc, #352]	; (8001458 <SysTick_Handler+0x404>)
- 80012f8:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 80012fc:	6153      	str	r3, [r2, #20]
+ 80012fe:	4b59      	ldr	r3, [pc, #356]	; (8001464 <SysTick_Handler+0x404>)
+ 8001300:	695b      	ldr	r3, [r3, #20]
+ 8001302:	4a58      	ldr	r2, [pc, #352]	; (8001464 <SysTick_Handler+0x404>)
+ 8001304:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 8001308:	6153      	str	r3, [r2, #20]
 		if (blue_mode == 1) {
- 80012fe:	4b57      	ldr	r3, [pc, #348]	; (800145c <SysTick_Handler+0x408>)
- 8001300:	681b      	ldr	r3, [r3, #0]
- 8001302:	2b01      	cmp	r3, #1
- 8001304:	d10b      	bne.n	800131e <SysTick_Handler+0x2ca>
+ 800130a:	4b57      	ldr	r3, [pc, #348]	; (8001468 <SysTick_Handler+0x408>)
+ 800130c:	681b      	ldr	r3, [r3, #0]
+ 800130e:	2b01      	cmp	r3, #1
+ 8001310:	d10b      	bne.n	800132a <SysTick_Handler+0x2ca>
 			LL_LPM_EnableDeepSleep();
- 8001306:	f7ff fcf1 	bl	8000cec <LL_LPM_EnableDeepSleep>
+ 8001312:	f7ff fceb 	bl	8000cec <LL_LPM_EnableDeepSleep>
 			LL_PWR_SetPowerMode(LL_PWR_MODE_STOP2);
- 800130a:	2002      	movs	r0, #2
- 800130c:	f7ff fd0e 	bl	8000d2c <LL_PWR_SetPowerMode>
+ 8001316:	2002      	movs	r0, #2
+ 8001318:	f7ff fd08 	bl	8000d2c <LL_PWR_SetPowerMode>
 			RTC_wakeup_init_from_stop(7);
- 8001310:	2007      	movs	r0, #7
- 8001312:	f000 f8e0 	bl	80014d6 <RTC_wakeup_init_from_stop>
+ 800131c:	2007      	movs	r0, #7
+ 800131e:	f000 f8e0 	bl	80014e2 <RTC_wakeup_init_from_stop>
 			__WFI();
- 8001316:	bf30      	wfi
+ 8001322:	bf30      	wfi
 			blue_mode = 0;
- 8001318:	4b50      	ldr	r3, [pc, #320]	; (800145c <SysTick_Handler+0x408>)
- 800131a:	2200      	movs	r2, #0
- 800131c:	601a      	str	r2, [r3, #0]
+ 8001324:	4b50      	ldr	r3, [pc, #320]	; (8001468 <SysTick_Handler+0x408>)
+ 8001326:	2200      	movs	r2, #0
+ 8001328:	601a      	str	r2, [r3, #0]
 		}
 		if (LED_ON == 1 && millis >= 350) {
- 800131e:	4b4b      	ldr	r3, [pc, #300]	; (800144c <SysTick_Handler+0x3f8>)
- 8001320:	681b      	ldr	r3, [r3, #0]
- 8001322:	2b01      	cmp	r3, #1
- 8001324:	d10e      	bne.n	8001344 <SysTick_Handler+0x2f0>
- 8001326:	4b4a      	ldr	r3, [pc, #296]	; (8001450 <SysTick_Handler+0x3fc>)
- 8001328:	681b      	ldr	r3, [r3, #0]
- 800132a:	f5b3 7faf 	cmp.w	r3, #350	; 0x15e
- 800132e:	d309      	bcc.n	8001344 <SysTick_Handler+0x2f0>
+ 800132a:	4b4b      	ldr	r3, [pc, #300]	; (8001458 <SysTick_Handler+0x3f8>)
+ 800132c:	681b      	ldr	r3, [r3, #0]
+ 800132e:	2b01      	cmp	r3, #1
+ 8001330:	d10e      	bne.n	8001350 <SysTick_Handler+0x2f0>
+ 8001332:	4b4a      	ldr	r3, [pc, #296]	; (800145c <SysTick_Handler+0x3fc>)
+ 8001334:	681b      	ldr	r3, [r3, #0]
+ 8001336:	f5b3 7faf 	cmp.w	r3, #350	; 0x15e
+ 800133a:	d309      	bcc.n	8001350 <SysTick_Handler+0x2f0>
 			LED_GREEN(0);
- 8001330:	2000      	movs	r0, #0
- 8001332:	f7ff fb8d 	bl	8000a50 <LED_GREEN>
+ 800133c:	2000      	movs	r0, #0
+ 800133e:	f7ff fb87 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 8001336:	4b45      	ldr	r3, [pc, #276]	; (800144c <SysTick_Handler+0x3f8>)
- 8001338:	2200      	movs	r2, #0
- 800133a:	601a      	str	r2, [r3, #0]
+ 8001342:	4b45      	ldr	r3, [pc, #276]	; (8001458 <SysTick_Handler+0x3f8>)
+ 8001344:	2200      	movs	r2, #0
+ 8001346:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 800133c:	4b44      	ldr	r3, [pc, #272]	; (8001450 <SysTick_Handler+0x3fc>)
- 800133e:	2200      	movs	r2, #0
- 8001340:	601a      	str	r2, [r3, #0]
- 8001342:	e012      	b.n	800136a <SysTick_Handler+0x316>
+ 8001348:	4b44      	ldr	r3, [pc, #272]	; (800145c <SysTick_Handler+0x3fc>)
+ 800134a:	2200      	movs	r2, #0
+ 800134c:	601a      	str	r2, [r3, #0]
+ 800134e:	e012      	b.n	8001376 <SysTick_Handler+0x316>
 		} else if (LED_ON == 0 && millis >= 1650) {
- 8001344:	4b41      	ldr	r3, [pc, #260]	; (800144c <SysTick_Handler+0x3f8>)
- 8001346:	681b      	ldr	r3, [r3, #0]
- 8001348:	2b00      	cmp	r3, #0
- 800134a:	d10e      	bne.n	800136a <SysTick_Handler+0x316>
- 800134c:	4b40      	ldr	r3, [pc, #256]	; (8001450 <SysTick_Handler+0x3fc>)
- 800134e:	681b      	ldr	r3, [r3, #0]
- 8001350:	f240 6271 	movw	r2, #1649	; 0x671
- 8001354:	4293      	cmp	r3, r2
- 8001356:	d908      	bls.n	800136a <SysTick_Handler+0x316>
+ 8001350:	4b41      	ldr	r3, [pc, #260]	; (8001458 <SysTick_Handler+0x3f8>)
+ 8001352:	681b      	ldr	r3, [r3, #0]
+ 8001354:	2b00      	cmp	r3, #0
+ 8001356:	d10e      	bne.n	8001376 <SysTick_Handler+0x316>
+ 8001358:	4b40      	ldr	r3, [pc, #256]	; (800145c <SysTick_Handler+0x3fc>)
+ 800135a:	681b      	ldr	r3, [r3, #0]
+ 800135c:	f240 6271 	movw	r2, #1649	; 0x671
+ 8001360:	4293      	cmp	r3, r2
+ 8001362:	d908      	bls.n	8001376 <SysTick_Handler+0x316>
 			LED_GREEN(1);
- 8001358:	2001      	movs	r0, #1
- 800135a:	f7ff fb79 	bl	8000a50 <LED_GREEN>
+ 8001364:	2001      	movs	r0, #1
+ 8001366:	f7ff fb73 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 800135e:	4b3b      	ldr	r3, [pc, #236]	; (800144c <SysTick_Handler+0x3f8>)
- 8001360:	2201      	movs	r2, #1
- 8001362:	601a      	str	r2, [r3, #0]
+ 800136a:	4b3b      	ldr	r3, [pc, #236]	; (8001458 <SysTick_Handler+0x3f8>)
+ 800136c:	2201      	movs	r2, #1
+ 800136e:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 8001364:	4b3a      	ldr	r3, [pc, #232]	; (8001450 <SysTick_Handler+0x3fc>)
- 8001366:	2200      	movs	r2, #0
- 8001368:	601a      	str	r2, [r3, #0]
+ 8001370:	4b3a      	ldr	r3, [pc, #232]	; (800145c <SysTick_Handler+0x3fc>)
+ 8001372:	2200      	movs	r2, #0
+ 8001374:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 8) {
- 800136a:	4b3a      	ldr	r3, [pc, #232]	; (8001454 <SysTick_Handler+0x400>)
- 800136c:	681b      	ldr	r3, [r3, #0]
- 800136e:	2b08      	cmp	r3, #8
- 8001370:	d138      	bne.n	80013e4 <SysTick_Handler+0x390>
+ 8001376:	4b3a      	ldr	r3, [pc, #232]	; (8001460 <SysTick_Handler+0x400>)
+ 8001378:	681b      	ldr	r3, [r3, #0]
+ 800137a:	2b08      	cmp	r3, #8
+ 800137c:	d138      	bne.n	80013f0 <SysTick_Handler+0x390>
 		GPIOC->ODR ^= (1 << 10);
- 8001372:	4b39      	ldr	r3, [pc, #228]	; (8001458 <SysTick_Handler+0x404>)
- 8001374:	695b      	ldr	r3, [r3, #20]
- 8001376:	4a38      	ldr	r2, [pc, #224]	; (8001458 <SysTick_Handler+0x404>)
- 8001378:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
- 800137c:	6153      	str	r3, [r2, #20]
+ 800137e:	4b39      	ldr	r3, [pc, #228]	; (8001464 <SysTick_Handler+0x404>)
+ 8001380:	695b      	ldr	r3, [r3, #20]
+ 8001382:	4a38      	ldr	r2, [pc, #224]	; (8001464 <SysTick_Handler+0x404>)
+ 8001384:	f483 6380 	eor.w	r3, r3, #1024	; 0x400
+ 8001388:	6153      	str	r3, [r2, #20]
 		if (BLUE_BUTTON()) {
- 800137e:	f7ff fb7d 	bl	8000a7c <BLUE_BUTTON>
- 8001382:	4603      	mov	r3, r0
- 8001384:	2b00      	cmp	r3, #0
- 8001386:	d008      	beq.n	800139a <SysTick_Handler+0x346>
+ 800138a:	f7ff fb77 	bl	8000a7c <BLUE_BUTTON>
+ 800138e:	4603      	mov	r3, r0
+ 8001390:	2b00      	cmp	r3, #0
+ 8001392:	d008      	beq.n	80013a6 <SysTick_Handler+0x346>
 			LL_PWR_SetPowerMode(LL_PWR_MODE_SHUTDOWN);
- 8001388:	2004      	movs	r0, #4
- 800138a:	f7ff fccf 	bl	8000d2c <LL_PWR_SetPowerMode>
+ 8001394:	2004      	movs	r0, #4
+ 8001396:	f7ff fcc9 	bl	8000d2c <LL_PWR_SetPowerMode>
 			LL_LPM_EnableDeepSleep();
- 800138e:	f7ff fcad 	bl	8000cec <LL_LPM_EnableDeepSleep>
+ 800139a:	f7ff fca7 	bl	8000cec <LL_LPM_EnableDeepSleep>
 			RTC_wakeup_init_from_standby_or_shutdown(7);
- 8001392:	2007      	movs	r0, #7
- 8001394:	f000 f892 	bl	80014bc <RTC_wakeup_init_from_standby_or_shutdown>
+ 800139e:	2007      	movs	r0, #7
+ 80013a0:	f000 f892 	bl	80014c8 <RTC_wakeup_init_from_standby_or_shutdown>
 			__WFI();
- 8001398:	bf30      	wfi
+ 80013a4:	bf30      	wfi
 			//blue_mode = 0;
 		}
 		if (LED_ON == 1 && millis >= 400) {
- 800139a:	4b2c      	ldr	r3, [pc, #176]	; (800144c <SysTick_Handler+0x3f8>)
- 800139c:	681b      	ldr	r3, [r3, #0]
- 800139e:	2b01      	cmp	r3, #1
- 80013a0:	d10e      	bne.n	80013c0 <SysTick_Handler+0x36c>
- 80013a2:	4b2b      	ldr	r3, [pc, #172]	; (8001450 <SysTick_Handler+0x3fc>)
- 80013a4:	681b      	ldr	r3, [r3, #0]
- 80013a6:	f5b3 7fc8 	cmp.w	r3, #400	; 0x190
- 80013aa:	d309      	bcc.n	80013c0 <SysTick_Handler+0x36c>
+ 80013a6:	4b2c      	ldr	r3, [pc, #176]	; (8001458 <SysTick_Handler+0x3f8>)
+ 80013a8:	681b      	ldr	r3, [r3, #0]
+ 80013aa:	2b01      	cmp	r3, #1
+ 80013ac:	d10e      	bne.n	80013cc <SysTick_Handler+0x36c>
+ 80013ae:	4b2b      	ldr	r3, [pc, #172]	; (800145c <SysTick_Handler+0x3fc>)
+ 80013b0:	681b      	ldr	r3, [r3, #0]
+ 80013b2:	f5b3 7fc8 	cmp.w	r3, #400	; 0x190
+ 80013b6:	d309      	bcc.n	80013cc <SysTick_Handler+0x36c>
 			LED_GREEN(0);
- 80013ac:	2000      	movs	r0, #0
- 80013ae:	f7ff fb4f 	bl	8000a50 <LED_GREEN>
+ 80013b8:	2000      	movs	r0, #0
+ 80013ba:	f7ff fb49 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 80013b2:	4b26      	ldr	r3, [pc, #152]	; (800144c <SysTick_Handler+0x3f8>)
- 80013b4:	2200      	movs	r2, #0
- 80013b6:	601a      	str	r2, [r3, #0]
+ 80013be:	4b26      	ldr	r3, [pc, #152]	; (8001458 <SysTick_Handler+0x3f8>)
+ 80013c0:	2200      	movs	r2, #0
+ 80013c2:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80013b8:	4b25      	ldr	r3, [pc, #148]	; (8001450 <SysTick_Handler+0x3fc>)
- 80013ba:	2200      	movs	r2, #0
- 80013bc:	601a      	str	r2, [r3, #0]
- 80013be:	e011      	b.n	80013e4 <SysTick_Handler+0x390>
+ 80013c4:	4b25      	ldr	r3, [pc, #148]	; (800145c <SysTick_Handler+0x3fc>)
+ 80013c6:	2200      	movs	r2, #0
+ 80013c8:	601a      	str	r2, [r3, #0]
+ 80013ca:	e011      	b.n	80013f0 <SysTick_Handler+0x390>
 		} else if (LED_ON == 0 && millis >= 1600) {
- 80013c0:	4b22      	ldr	r3, [pc, #136]	; (800144c <SysTick_Handler+0x3f8>)
- 80013c2:	681b      	ldr	r3, [r3, #0]
- 80013c4:	2b00      	cmp	r3, #0
- 80013c6:	d10d      	bne.n	80013e4 <SysTick_Handler+0x390>
- 80013c8:	4b21      	ldr	r3, [pc, #132]	; (8001450 <SysTick_Handler+0x3fc>)
- 80013ca:	681b      	ldr	r3, [r3, #0]
- 80013cc:	f5b3 6fc8 	cmp.w	r3, #1600	; 0x640
- 80013d0:	d308      	bcc.n	80013e4 <SysTick_Handler+0x390>
+ 80013cc:	4b22      	ldr	r3, [pc, #136]	; (8001458 <SysTick_Handler+0x3f8>)
+ 80013ce:	681b      	ldr	r3, [r3, #0]
+ 80013d0:	2b00      	cmp	r3, #0
+ 80013d2:	d10d      	bne.n	80013f0 <SysTick_Handler+0x390>
+ 80013d4:	4b21      	ldr	r3, [pc, #132]	; (800145c <SysTick_Handler+0x3fc>)
+ 80013d6:	681b      	ldr	r3, [r3, #0]
+ 80013d8:	f5b3 6fc8 	cmp.w	r3, #1600	; 0x640
+ 80013dc:	d308      	bcc.n	80013f0 <SysTick_Handler+0x390>
 			LED_GREEN(1);
- 80013d2:	2001      	movs	r0, #1
- 80013d4:	f7ff fb3c 	bl	8000a50 <LED_GREEN>
+ 80013de:	2001      	movs	r0, #1
+ 80013e0:	f7ff fb36 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 80013d8:	4b1c      	ldr	r3, [pc, #112]	; (800144c <SysTick_Handler+0x3f8>)
- 80013da:	2201      	movs	r2, #1
- 80013dc:	601a      	str	r2, [r3, #0]
+ 80013e4:	4b1c      	ldr	r3, [pc, #112]	; (8001458 <SysTick_Handler+0x3f8>)
+ 80013e6:	2201      	movs	r2, #1
+ 80013e8:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 80013de:	4b1c      	ldr	r3, [pc, #112]	; (8001450 <SysTick_Handler+0x3fc>)
- 80013e0:	2200      	movs	r2, #0
- 80013e2:	601a      	str	r2, [r3, #0]
+ 80013ea:	4b1c      	ldr	r3, [pc, #112]	; (800145c <SysTick_Handler+0x3fc>)
+ 80013ec:	2200      	movs	r2, #0
+ 80013ee:	601a      	str	r2, [r3, #0]
 		}
 	}
 	if (expe == 1) {
- 80013e4:	4b1b      	ldr	r3, [pc, #108]	; (8001454 <SysTick_Handler+0x400>)
- 80013e6:	681b      	ldr	r3, [r3, #0]
- 80013e8:	2b01      	cmp	r3, #1
- 80013ea:	d12c      	bne.n	8001446 <SysTick_Handler+0x3f2>
+ 80013f0:	4b1b      	ldr	r3, [pc, #108]	; (8001460 <SysTick_Handler+0x400>)
+ 80013f2:	681b      	ldr	r3, [r3, #0]
+ 80013f4:	2b01      	cmp	r3, #1
+ 80013f6:	d12c      	bne.n	8001452 <SysTick_Handler+0x3f2>
 		if (BLUE_BUTTON())
- 80013ec:	f7ff fb46 	bl	8000a7c <BLUE_BUTTON>
- 80013f0:	4603      	mov	r3, r0
- 80013f2:	2b00      	cmp	r3, #0
- 80013f4:	d002      	beq.n	80013fc <SysTick_Handler+0x3a8>
+ 80013f8:	f7ff fb40 	bl	8000a7c <BLUE_BUTTON>
+ 80013fc:	4603      	mov	r3, r0
+ 80013fe:	2b00      	cmp	r3, #0
+ 8001400:	d002      	beq.n	8001408 <SysTick_Handler+0x3a8>
 			Sleep_State = 1;
- 80013f6:	4b1a      	ldr	r3, [pc, #104]	; (8001460 <SysTick_Handler+0x40c>)
- 80013f8:	2201      	movs	r2, #1
- 80013fa:	601a      	str	r2, [r3, #0]
+ 8001402:	4b1a      	ldr	r3, [pc, #104]	; (800146c <SysTick_Handler+0x40c>)
+ 8001404:	2201      	movs	r2, #1
+ 8001406:	601a      	str	r2, [r3, #0]
 		//MSI_State=0;
 		//to be defined if systick interrupt is enabled.
 		if (LED_ON == 1 && millis >= T_LED_ON) {
- 80013fc:	4b13      	ldr	r3, [pc, #76]	; (800144c <SysTick_Handler+0x3f8>)
- 80013fe:	681b      	ldr	r3, [r3, #0]
- 8001400:	2b01      	cmp	r3, #1
- 8001402:	d10d      	bne.n	8001420 <SysTick_Handler+0x3cc>
- 8001404:	4b12      	ldr	r3, [pc, #72]	; (8001450 <SysTick_Handler+0x3fc>)
- 8001406:	681b      	ldr	r3, [r3, #0]
- 8001408:	2b31      	cmp	r3, #49	; 0x31
- 800140a:	d909      	bls.n	8001420 <SysTick_Handler+0x3cc>
+ 8001408:	4b13      	ldr	r3, [pc, #76]	; (8001458 <SysTick_Handler+0x3f8>)
+ 800140a:	681b      	ldr	r3, [r3, #0]
+ 800140c:	2b01      	cmp	r3, #1
+ 800140e:	d10d      	bne.n	800142c <SysTick_Handler+0x3cc>
+ 8001410:	4b12      	ldr	r3, [pc, #72]	; (800145c <SysTick_Handler+0x3fc>)
+ 8001412:	681b      	ldr	r3, [r3, #0]
+ 8001414:	2b31      	cmp	r3, #49	; 0x31
+ 8001416:	d909      	bls.n	800142c <SysTick_Handler+0x3cc>
 			LED_GREEN(0);
- 800140c:	2000      	movs	r0, #0
- 800140e:	f7ff fb1f 	bl	8000a50 <LED_GREEN>
+ 8001418:	2000      	movs	r0, #0
+ 800141a:	f7ff fb19 	bl	8000a50 <LED_GREEN>
 			LED_ON = 0;
- 8001412:	4b0e      	ldr	r3, [pc, #56]	; (800144c <SysTick_Handler+0x3f8>)
- 8001414:	2200      	movs	r2, #0
- 8001416:	601a      	str	r2, [r3, #0]
+ 800141e:	4b0e      	ldr	r3, [pc, #56]	; (8001458 <SysTick_Handler+0x3f8>)
+ 8001420:	2200      	movs	r2, #0
+ 8001422:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 8001418:	4b0d      	ldr	r3, [pc, #52]	; (8001450 <SysTick_Handler+0x3fc>)
- 800141a:	2200      	movs	r2, #0
- 800141c:	601a      	str	r2, [r3, #0]
+ 8001424:	4b0d      	ldr	r3, [pc, #52]	; (800145c <SysTick_Handler+0x3fc>)
+ 8001426:	2200      	movs	r2, #0
+ 8001428:	601a      	str	r2, [r3, #0]
 			LED_GREEN(1);
 			LED_ON = 1;
 			millis = 0;
 		}
 	}
 }
- 800141e:	e012      	b.n	8001446 <SysTick_Handler+0x3f2>
+ 800142a:	e012      	b.n	8001452 <SysTick_Handler+0x3f2>
 		} else if (LED_ON == 0 && millis >= T_LED_OFF) {
- 8001420:	4b0a      	ldr	r3, [pc, #40]	; (800144c <SysTick_Handler+0x3f8>)
- 8001422:	681b      	ldr	r3, [r3, #0]
- 8001424:	2b00      	cmp	r3, #0
- 8001426:	d10e      	bne.n	8001446 <SysTick_Handler+0x3f2>
- 8001428:	4b09      	ldr	r3, [pc, #36]	; (8001450 <SysTick_Handler+0x3fc>)
- 800142a:	681b      	ldr	r3, [r3, #0]
- 800142c:	f240 32b5 	movw	r2, #949	; 0x3b5
- 8001430:	4293      	cmp	r3, r2
- 8001432:	d908      	bls.n	8001446 <SysTick_Handler+0x3f2>
+ 800142c:	4b0a      	ldr	r3, [pc, #40]	; (8001458 <SysTick_Handler+0x3f8>)
+ 800142e:	681b      	ldr	r3, [r3, #0]
+ 8001430:	2b00      	cmp	r3, #0
+ 8001432:	d10e      	bne.n	8001452 <SysTick_Handler+0x3f2>
+ 8001434:	4b09      	ldr	r3, [pc, #36]	; (800145c <SysTick_Handler+0x3fc>)
+ 8001436:	681b      	ldr	r3, [r3, #0]
+ 8001438:	f240 32b5 	movw	r2, #949	; 0x3b5
+ 800143c:	4293      	cmp	r3, r2
+ 800143e:	d908      	bls.n	8001452 <SysTick_Handler+0x3f2>
 			LED_GREEN(1);
- 8001434:	2001      	movs	r0, #1
- 8001436:	f7ff fb0b 	bl	8000a50 <LED_GREEN>
+ 8001440:	2001      	movs	r0, #1
+ 8001442:	f7ff fb05 	bl	8000a50 <LED_GREEN>
 			LED_ON = 1;
- 800143a:	4b04      	ldr	r3, [pc, #16]	; (800144c <SysTick_Handler+0x3f8>)
- 800143c:	2201      	movs	r2, #1
- 800143e:	601a      	str	r2, [r3, #0]
+ 8001446:	4b04      	ldr	r3, [pc, #16]	; (8001458 <SysTick_Handler+0x3f8>)
+ 8001448:	2201      	movs	r2, #1
+ 800144a:	601a      	str	r2, [r3, #0]
 			millis = 0;
- 8001440:	4b03      	ldr	r3, [pc, #12]	; (8001450 <SysTick_Handler+0x3fc>)
- 8001442:	2200      	movs	r2, #0
- 8001444:	601a      	str	r2, [r3, #0]
+ 800144c:	4b03      	ldr	r3, [pc, #12]	; (800145c <SysTick_Handler+0x3fc>)
+ 800144e:	2200      	movs	r2, #0
+ 8001450:	601a      	str	r2, [r3, #0]
 }
- 8001446:	bf00      	nop
- 8001448:	bd80      	pop	{r7, pc}
- 800144a:	bf00      	nop
- 800144c:	20000028 	.word	0x20000028
- 8001450:	20000024 	.word	0x20000024
- 8001454:	20000030 	.word	0x20000030
- 8001458:	48000800 	.word	0x48000800
- 800145c:	20000034 	.word	0x20000034
- 8001460:	2000002c 	.word	0x2000002c
+ 8001452:	bf00      	nop
+ 8001454:	bd80      	pop	{r7, pc}
+ 8001456:	bf00      	nop
+ 8001458:	20000028 	.word	0x20000028
+ 800145c:	20000024 	.word	0x20000024
+ 8001460:	20000030 	.word	0x20000030
+ 8001464:	48000800 	.word	0x48000800
+ 8001468:	20000034 	.word	0x20000034
+ 800146c:	2000002c 	.word	0x2000002c
 
-08001464 <RTC_wakeup_init>:
+08001470 <RTC_wakeup_init>:
 // partie commune a toutes les utilisations du wakeup timer
 void RTC_wakeup_init(int delay) {
- 8001464:	b580      	push	{r7, lr}
- 8001466:	b082      	sub	sp, #8
- 8001468:	af00      	add	r7, sp, #0
- 800146a:	6078      	str	r0, [r7, #4]
+ 8001470:	b580      	push	{r7, lr}
+ 8001472:	b082      	sub	sp, #8
+ 8001474:	af00      	add	r7, sp, #0
+ 8001476:	6078      	str	r0, [r7, #4]
 	LL_RTC_DisableWriteProtection( RTC);
- 800146c:	4812      	ldr	r0, [pc, #72]	; (80014b8 <RTC_wakeup_init+0x54>)
- 800146e:	f7ff fc8e 	bl	8000d8e <LL_RTC_DisableWriteProtection>
+ 8001478:	4812      	ldr	r0, [pc, #72]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 800147a:	f7ff fc88 	bl	8000d8e <LL_RTC_DisableWriteProtection>
 	LL_RTC_WAKEUP_Disable( RTC);
- 8001472:	4811      	ldr	r0, [pc, #68]	; (80014b8 <RTC_wakeup_init+0x54>)
- 8001474:	f7ff fcab 	bl	8000dce <LL_RTC_WAKEUP_Disable>
+ 800147e:	4811      	ldr	r0, [pc, #68]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 8001480:	f7ff fca5 	bl	8000dce <LL_RTC_WAKEUP_Disable>
 	while (!LL_RTC_IsActiveFlag_WUTW( RTC)) {
- 8001478:	bf00      	nop
- 800147a:	480f      	ldr	r0, [pc, #60]	; (80014b8 <RTC_wakeup_init+0x54>)
- 800147c:	f7ff fd1e 	bl	8000ebc <LL_RTC_IsActiveFlag_WUTW>
- 8001480:	4603      	mov	r3, r0
- 8001482:	2b00      	cmp	r3, #0
- 8001484:	d0f9      	beq.n	800147a <RTC_wakeup_init+0x16>
+ 8001484:	bf00      	nop
+ 8001486:	480f      	ldr	r0, [pc, #60]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 8001488:	f7ff fd18 	bl	8000ebc <LL_RTC_IsActiveFlag_WUTW>
+ 800148c:	4603      	mov	r3, r0
+ 800148e:	2b00      	cmp	r3, #0
+ 8001490:	d0f9      	beq.n	8001486 <RTC_wakeup_init+0x16>
 	}
 	// connecter le timer a l'horloge 1Hz de la RTC
 	LL_RTC_WAKEUP_SetClock( RTC, LL_RTC_WAKEUPCLOCK_CKSPRE);
- 8001486:	2104      	movs	r1, #4
- 8001488:	480b      	ldr	r0, [pc, #44]	; (80014b8 <RTC_wakeup_init+0x54>)
- 800148a:	f7ff fcb0 	bl	8000dee <LL_RTC_WAKEUP_SetClock>
+ 8001492:	2104      	movs	r1, #4
+ 8001494:	480b      	ldr	r0, [pc, #44]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 8001496:	f7ff fcaa 	bl	8000dee <LL_RTC_WAKEUP_SetClock>
 	// fixer la duree de temporisation
 	LL_RTC_WAKEUP_SetAutoReload( RTC, delay);	// 16 bits
- 800148e:	687b      	ldr	r3, [r7, #4]
- 8001490:	4619      	mov	r1, r3
- 8001492:	4809      	ldr	r0, [pc, #36]	; (80014b8 <RTC_wakeup_init+0x54>)
- 8001494:	f7ff fcbe 	bl	8000e14 <LL_RTC_WAKEUP_SetAutoReload>
+ 800149a:	687b      	ldr	r3, [r7, #4]
+ 800149c:	4619      	mov	r1, r3
+ 800149e:	4809      	ldr	r0, [pc, #36]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 80014a0:	f7ff fcb8 	bl	8000e14 <LL_RTC_WAKEUP_SetAutoReload>
 	LL_RTC_ClearFlag_WUT(RTC);
- 8001498:	4807      	ldr	r0, [pc, #28]	; (80014b8 <RTC_wakeup_init+0x54>)
- 800149a:	f7ff fcfe 	bl	8000e9a <LL_RTC_ClearFlag_WUT>
+ 80014a4:	4807      	ldr	r0, [pc, #28]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 80014a6:	f7ff fcf8 	bl	8000e9a <LL_RTC_ClearFlag_WUT>
 	LL_RTC_EnableIT_WUT(RTC);
- 800149e:	4806      	ldr	r0, [pc, #24]	; (80014b8 <RTC_wakeup_init+0x54>)
- 80014a0:	f7ff fd1f 	bl	8000ee2 <LL_RTC_EnableIT_WUT>
+ 80014aa:	4806      	ldr	r0, [pc, #24]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 80014ac:	f7ff fd19 	bl	8000ee2 <LL_RTC_EnableIT_WUT>
 	LL_RTC_WAKEUP_Enable(RTC);
- 80014a4:	4804      	ldr	r0, [pc, #16]	; (80014b8 <RTC_wakeup_init+0x54>)
- 80014a6:	f7ff fc82 	bl	8000dae <LL_RTC_WAKEUP_Enable>
+ 80014b0:	4804      	ldr	r0, [pc, #16]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 80014b2:	f7ff fc7c 	bl	8000dae <LL_RTC_WAKEUP_Enable>
 	LL_RTC_EnableWriteProtection(RTC);
- 80014aa:	4803      	ldr	r0, [pc, #12]	; (80014b8 <RTC_wakeup_init+0x54>)
- 80014ac:	f7ff fc62 	bl	8000d74 <LL_RTC_EnableWriteProtection>
+ 80014b6:	4803      	ldr	r0, [pc, #12]	; (80014c4 <RTC_wakeup_init+0x54>)
+ 80014b8:	f7ff fc5c 	bl	8000d74 <LL_RTC_EnableWriteProtection>
 }
- 80014b0:	bf00      	nop
- 80014b2:	3708      	adds	r7, #8
- 80014b4:	46bd      	mov	sp, r7
- 80014b6:	bd80      	pop	{r7, pc}
- 80014b8:	40002800 	.word	0x40002800
+ 80014bc:	bf00      	nop
+ 80014be:	3708      	adds	r7, #8
+ 80014c0:	46bd      	mov	sp, r7
+ 80014c2:	bd80      	pop	{r7, pc}
+ 80014c4:	40002800 	.word	0x40002800
 
-080014bc <RTC_wakeup_init_from_standby_or_shutdown>:
+080014c8 <RTC_wakeup_init_from_standby_or_shutdown>:
 
 // Dans le cas des modes STANDBY et SHUTDOWN, le MPU sera reveille par reset
 // causé par 1 wakeup line (interne ou externe) (le NVIC n'est plus alimenté)
 void RTC_wakeup_init_from_standby_or_shutdown(int delay) {
- 80014bc:	b580      	push	{r7, lr}
- 80014be:	b082      	sub	sp, #8
- 80014c0:	af00      	add	r7, sp, #0
- 80014c2:	6078      	str	r0, [r7, #4]
+ 80014c8:	b580      	push	{r7, lr}
+ 80014ca:	b082      	sub	sp, #8
+ 80014cc:	af00      	add	r7, sp, #0
+ 80014ce:	6078      	str	r0, [r7, #4]
 	RTC_wakeup_init(delay);
- 80014c4:	6878      	ldr	r0, [r7, #4]
- 80014c6:	f7ff ffcd 	bl	8001464 <RTC_wakeup_init>
+ 80014d0:	6878      	ldr	r0, [r7, #4]
+ 80014d2:	f7ff ffcd 	bl	8001470 <RTC_wakeup_init>
 	// enable the Internal Wake-up line
 	LL_PWR_EnableInternWU();// ceci ne concerne que Standby et Shutdown, pas STOPx
- 80014ca:	f7ff fc43 	bl	8000d54 <LL_PWR_EnableInternWU>
+ 80014d6:	f7ff fc3d 	bl	8000d54 <LL_PWR_EnableInternWU>
 }
- 80014ce:	bf00      	nop
- 80014d0:	3708      	adds	r7, #8
- 80014d2:	46bd      	mov	sp, r7
- 80014d4:	bd80      	pop	{r7, pc}
+ 80014da:	bf00      	nop
+ 80014dc:	3708      	adds	r7, #8
+ 80014de:	46bd      	mov	sp, r7
+ 80014e0:	bd80      	pop	{r7, pc}
 
-080014d6 <RTC_wakeup_init_from_stop>:
+080014e2 <RTC_wakeup_init_from_stop>:
 
 // Dans le cas des modes STOPx, le MPU sera reveille par interruption
 // le module EXTI et une partie du NVIC sont encore alimentes
 // le contenu de la RAM et des registres étant préservé, le MPU
 // reprend l'execution après l'instruction WFI
 void RTC_wakeup_init_from_stop(int delay) {
- 80014d6:	b580      	push	{r7, lr}
- 80014d8:	b082      	sub	sp, #8
- 80014da:	af00      	add	r7, sp, #0
- 80014dc:	6078      	str	r0, [r7, #4]
+ 80014e2:	b580      	push	{r7, lr}
+ 80014e4:	b082      	sub	sp, #8
+ 80014e6:	af00      	add	r7, sp, #0
+ 80014e8:	6078      	str	r0, [r7, #4]
 	RTC_wakeup_init(delay);
- 80014de:	6878      	ldr	r0, [r7, #4]
- 80014e0:	f7ff ffc0 	bl	8001464 <RTC_wakeup_init>
+ 80014ea:	6878      	ldr	r0, [r7, #4]
+ 80014ec:	f7ff ffc0 	bl	8001470 <RTC_wakeup_init>
 	// valider l'interrupt par la ligne 20 du module EXTI, qui est réservée au wakeup timer
 	LL_EXTI_EnableIT_0_31( LL_EXTI_LINE_20);
- 80014e4:	f44f 1080 	mov.w	r0, #1048576	; 0x100000
- 80014e8:	f7ff fbbc 	bl	8000c64 <LL_EXTI_EnableIT_0_31>
+ 80014f0:	f44f 1080 	mov.w	r0, #1048576	; 0x100000
+ 80014f4:	f7ff fbb6 	bl	8000c64 <LL_EXTI_EnableIT_0_31>
 	LL_EXTI_EnableRisingTrig_0_31( LL_EXTI_LINE_20);
- 80014ec:	f44f 1080 	mov.w	r0, #1048576	; 0x100000
- 80014f0:	f7ff fbca 	bl	8000c88 <LL_EXTI_EnableRisingTrig_0_31>
+ 80014f8:	f44f 1080 	mov.w	r0, #1048576	; 0x100000
+ 80014fc:	f7ff fbc4 	bl	8000c88 <LL_EXTI_EnableRisingTrig_0_31>
 	// valider l'interrupt chez NVIC
 	NVIC_SetPriority(RTC_WKUP_IRQn, 1);
- 80014f4:	2101      	movs	r1, #1
- 80014f6:	2003      	movs	r0, #3
- 80014f8:	f7ff fb14 	bl	8000b24 <__NVIC_SetPriority>
+ 8001500:	2101      	movs	r1, #1
+ 8001502:	2003      	movs	r0, #3
+ 8001504:	f7ff fb0e 	bl	8000b24 <__NVIC_SetPriority>
 	NVIC_EnableIRQ(RTC_WKUP_IRQn);
- 80014fc:	2003      	movs	r0, #3
- 80014fe:	f7ff faf3 	bl	8000ae8 <__NVIC_EnableIRQ>
+ 8001508:	2003      	movs	r0, #3
+ 800150a:	f7ff faed 	bl	8000ae8 <__NVIC_EnableIRQ>
 }
- 8001502:	bf00      	nop
- 8001504:	3708      	adds	r7, #8
- 8001506:	46bd      	mov	sp, r7
- 8001508:	bd80      	pop	{r7, pc}
+ 800150e:	bf00      	nop
+ 8001510:	3708      	adds	r7, #8
+ 8001512:	46bd      	mov	sp, r7
+ 8001514:	bd80      	pop	{r7, pc}
 
-0800150a <RTC_WKUP_IRQHandler>:
+08001516 <RTC_WKUP_IRQHandler>:
 
 // wakeup timer interrupt Handler (inutile mais doit etre defini)
 void RTC_WKUP_IRQHandler() {
- 800150a:	b580      	push	{r7, lr}
- 800150c:	af00      	add	r7, sp, #0
+ 8001516:	b580      	push	{r7, lr}
+ 8001518:	af00      	add	r7, sp, #0
 	LL_EXTI_ClearFlag_0_31( LL_EXTI_LINE_20);
- 800150e:	f44f 1080 	mov.w	r0, #1048576	; 0x100000
- 8001512:	f7ff fbcb 	bl	8000cac <LL_EXTI_ClearFlag_0_31>
+ 800151a:	f44f 1080 	mov.w	r0, #1048576	; 0x100000
+ 800151e:	f7ff fbc5 	bl	8000cac <LL_EXTI_ClearFlag_0_31>
 }
- 8001516:	bf00      	nop
- 8001518:	bd80      	pop	{r7, pc}
+ 8001522:	bf00      	nop
+ 8001524:	bd80      	pop	{r7, pc}
 
-0800151a <NMI_Handler>:
+08001526 <NMI_Handler>:
 /******************************************************************************/
 /**
   * @brief This function handles Non maskable interrupt.
   */
 void NMI_Handler(void)
 {
- 800151a:	b480      	push	{r7}
- 800151c:	af00      	add	r7, sp, #0
+ 8001526:	b480      	push	{r7}
+ 8001528:	af00      	add	r7, sp, #0
 
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
 
   /* USER CODE END NonMaskableInt_IRQn 1 */
 }
- 800151e:	bf00      	nop
- 8001520:	46bd      	mov	sp, r7
- 8001522:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8001526:	4770      	bx	lr
+ 800152a:	bf00      	nop
+ 800152c:	46bd      	mov	sp, r7
+ 800152e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8001532:	4770      	bx	lr
 
-08001528 <HardFault_Handler>:
+08001534 <HardFault_Handler>:
 
 /**
   * @brief This function handles Hard fault interrupt.
   */
 void HardFault_Handler(void)
 {
- 8001528:	b480      	push	{r7}
- 800152a:	af00      	add	r7, sp, #0
+ 8001534:	b480      	push	{r7}
+ 8001536:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN HardFault_IRQn 0 */
 
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
- 800152c:	e7fe      	b.n	800152c <HardFault_Handler+0x4>
+ 8001538:	e7fe      	b.n	8001538 <HardFault_Handler+0x4>
 
-0800152e <MemManage_Handler>:
+0800153a <MemManage_Handler>:
 
 /**
   * @brief This function handles Memory management fault.
   */
 void MemManage_Handler(void)
 {
- 800152e:	b480      	push	{r7}
- 8001530:	af00      	add	r7, sp, #0
+ 800153a:	b480      	push	{r7}
+ 800153c:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
 
   /* USER CODE END MemoryManagement_IRQn 0 */
   while (1)
- 8001532:	e7fe      	b.n	8001532 <MemManage_Handler+0x4>
+ 800153e:	e7fe      	b.n	800153e <MemManage_Handler+0x4>
 
-08001534 <BusFault_Handler>:
+08001540 <BusFault_Handler>:
 
 /**
   * @brief This function handles Prefetch fault, memory access fault.
   */
 void BusFault_Handler(void)
 {
- 8001534:	b480      	push	{r7}
- 8001536:	af00      	add	r7, sp, #0
+ 8001540:	b480      	push	{r7}
+ 8001542:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN BusFault_IRQn 0 */
 
   /* USER CODE END BusFault_IRQn 0 */
   while (1)
- 8001538:	e7fe      	b.n	8001538 <BusFault_Handler+0x4>
+ 8001544:	e7fe      	b.n	8001544 <BusFault_Handler+0x4>
 
-0800153a <UsageFault_Handler>:
+08001546 <UsageFault_Handler>:
 
 /**
   * @brief This function handles Undefined instruction or illegal state.
   */
 void UsageFault_Handler(void)
 {
- 800153a:	b480      	push	{r7}
- 800153c:	af00      	add	r7, sp, #0
+ 8001546:	b480      	push	{r7}
+ 8001548:	af00      	add	r7, sp, #0
   /* USER CODE BEGIN UsageFault_IRQn 0 */
 
   /* USER CODE END UsageFault_IRQn 0 */
   while (1)
- 800153e:	e7fe      	b.n	800153e <UsageFault_Handler+0x4>
+ 800154a:	e7fe      	b.n	800154a <UsageFault_Handler+0x4>
 
-08001540 <SVC_Handler>:
+0800154c <SVC_Handler>:
 
 /**
   * @brief This function handles System service call via SWI instruction.
   */
 void SVC_Handler(void)
 {
- 8001540:	b480      	push	{r7}
- 8001542:	af00      	add	r7, sp, #0
+ 800154c:	b480      	push	{r7}
+ 800154e:	af00      	add	r7, sp, #0
 
   /* USER CODE END SVCall_IRQn 0 */
   /* USER CODE BEGIN SVCall_IRQn 1 */
 
   /* USER CODE END SVCall_IRQn 1 */
 }
- 8001544:	bf00      	nop
- 8001546:	46bd      	mov	sp, r7
- 8001548:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800154c:	4770      	bx	lr
+ 8001550:	bf00      	nop
+ 8001552:	46bd      	mov	sp, r7
+ 8001554:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8001558:	4770      	bx	lr
 
-0800154e <DebugMon_Handler>:
+0800155a <DebugMon_Handler>:
 
 /**
   * @brief This function handles Debug monitor.
   */
 void DebugMon_Handler(void)
 {
- 800154e:	b480      	push	{r7}
- 8001550:	af00      	add	r7, sp, #0
+ 800155a:	b480      	push	{r7}
+ 800155c:	af00      	add	r7, sp, #0
 
   /* USER CODE END DebugMonitor_IRQn 0 */
   /* USER CODE BEGIN DebugMonitor_IRQn 1 */
 
   /* USER CODE END DebugMonitor_IRQn 1 */
 }
- 8001552:	bf00      	nop
- 8001554:	46bd      	mov	sp, r7
- 8001556:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800155a:	4770      	bx	lr
+ 800155e:	bf00      	nop
+ 8001560:	46bd      	mov	sp, r7
+ 8001562:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8001566:	4770      	bx	lr
 
-0800155c <PendSV_Handler>:
+08001568 <PendSV_Handler>:
 
 /**
   * @brief This function handles Pendable request for system service.
   */
 void PendSV_Handler(void)
 {
- 800155c:	b480      	push	{r7}
- 800155e:	af00      	add	r7, sp, #0
+ 8001568:	b480      	push	{r7}
+ 800156a:	af00      	add	r7, sp, #0
 
   /* USER CODE END PendSV_IRQn 0 */
   /* USER CODE BEGIN PendSV_IRQn 1 */
 
   /* USER CODE END PendSV_IRQn 1 */
 }
- 8001560:	bf00      	nop
- 8001562:	46bd      	mov	sp, r7
- 8001564:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8001568:	4770      	bx	lr
+ 800156c:	bf00      	nop
+ 800156e:	46bd      	mov	sp, r7
+ 8001570:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8001574:	4770      	bx	lr
 	...
 
-0800156c <SystemInit>:
+08001578 <SystemInit>:
   * @param  None
   * @retval None
   */
 
 void SystemInit(void)
 {
- 800156c:	b480      	push	{r7}
- 800156e:	af00      	add	r7, sp, #0
+ 8001578:	b480      	push	{r7}
+ 800157a:	af00      	add	r7, sp, #0
   /* FPU settings ------------------------------------------------------------*/
   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
- 8001570:	4b17      	ldr	r3, [pc, #92]	; (80015d0 <SystemInit+0x64>)
- 8001572:	f8d3 3088 	ldr.w	r3, [r3, #136]	; 0x88
- 8001576:	4a16      	ldr	r2, [pc, #88]	; (80015d0 <SystemInit+0x64>)
- 8001578:	f443 0370 	orr.w	r3, r3, #15728640	; 0xf00000
- 800157c:	f8c2 3088 	str.w	r3, [r2, #136]	; 0x88
+ 800157c:	4b17      	ldr	r3, [pc, #92]	; (80015dc <SystemInit+0x64>)
+ 800157e:	f8d3 3088 	ldr.w	r3, [r3, #136]	; 0x88
+ 8001582:	4a16      	ldr	r2, [pc, #88]	; (80015dc <SystemInit+0x64>)
+ 8001584:	f443 0370 	orr.w	r3, r3, #15728640	; 0xf00000
+ 8001588:	f8c2 3088 	str.w	r3, [r2, #136]	; 0x88
   #endif
 
   /* Reset the RCC clock configuration to the default reset state ------------*/
   /* Set MSION bit */
   RCC->CR |= RCC_CR_MSION;
- 8001580:	4b14      	ldr	r3, [pc, #80]	; (80015d4 <SystemInit+0x68>)
- 8001582:	681b      	ldr	r3, [r3, #0]
- 8001584:	4a13      	ldr	r2, [pc, #76]	; (80015d4 <SystemInit+0x68>)
- 8001586:	f043 0301 	orr.w	r3, r3, #1
- 800158a:	6013      	str	r3, [r2, #0]
+ 800158c:	4b14      	ldr	r3, [pc, #80]	; (80015e0 <SystemInit+0x68>)
+ 800158e:	681b      	ldr	r3, [r3, #0]
+ 8001590:	4a13      	ldr	r2, [pc, #76]	; (80015e0 <SystemInit+0x68>)
+ 8001592:	f043 0301 	orr.w	r3, r3, #1
+ 8001596:	6013      	str	r3, [r2, #0]
 
   /* Reset CFGR register */
   RCC->CFGR = 0x00000000U;
- 800158c:	4b11      	ldr	r3, [pc, #68]	; (80015d4 <SystemInit+0x68>)
- 800158e:	2200      	movs	r2, #0
- 8001590:	609a      	str	r2, [r3, #8]
+ 8001598:	4b11      	ldr	r3, [pc, #68]	; (80015e0 <SystemInit+0x68>)
+ 800159a:	2200      	movs	r2, #0
+ 800159c:	609a      	str	r2, [r3, #8]
 
   /* Reset HSEON, CSSON , HSION, and PLLON bits */
   RCC->CR &= 0xEAF6FFFFU;
- 8001592:	4b10      	ldr	r3, [pc, #64]	; (80015d4 <SystemInit+0x68>)
- 8001594:	681b      	ldr	r3, [r3, #0]
- 8001596:	4a0f      	ldr	r2, [pc, #60]	; (80015d4 <SystemInit+0x68>)
- 8001598:	f023 53a8 	bic.w	r3, r3, #352321536	; 0x15000000
- 800159c:	f423 2310 	bic.w	r3, r3, #589824	; 0x90000
- 80015a0:	6013      	str	r3, [r2, #0]
+ 800159e:	4b10      	ldr	r3, [pc, #64]	; (80015e0 <SystemInit+0x68>)
+ 80015a0:	681b      	ldr	r3, [r3, #0]
+ 80015a2:	4a0f      	ldr	r2, [pc, #60]	; (80015e0 <SystemInit+0x68>)
+ 80015a4:	f023 53a8 	bic.w	r3, r3, #352321536	; 0x15000000
+ 80015a8:	f423 2310 	bic.w	r3, r3, #589824	; 0x90000
+ 80015ac:	6013      	str	r3, [r2, #0]
 
   /* Reset PLLCFGR register */
   RCC->PLLCFGR = 0x00001000U;
- 80015a2:	4b0c      	ldr	r3, [pc, #48]	; (80015d4 <SystemInit+0x68>)
- 80015a4:	f44f 5280 	mov.w	r2, #4096	; 0x1000
- 80015a8:	60da      	str	r2, [r3, #12]
+ 80015ae:	4b0c      	ldr	r3, [pc, #48]	; (80015e0 <SystemInit+0x68>)
+ 80015b0:	f44f 5280 	mov.w	r2, #4096	; 0x1000
+ 80015b4:	60da      	str	r2, [r3, #12]
 
   /* Reset HSEBYP bit */
   RCC->CR &= 0xFFFBFFFFU;
- 80015aa:	4b0a      	ldr	r3, [pc, #40]	; (80015d4 <SystemInit+0x68>)
- 80015ac:	681b      	ldr	r3, [r3, #0]
- 80015ae:	4a09      	ldr	r2, [pc, #36]	; (80015d4 <SystemInit+0x68>)
- 80015b0:	f423 2380 	bic.w	r3, r3, #262144	; 0x40000
- 80015b4:	6013      	str	r3, [r2, #0]
+ 80015b6:	4b0a      	ldr	r3, [pc, #40]	; (80015e0 <SystemInit+0x68>)
+ 80015b8:	681b      	ldr	r3, [r3, #0]
+ 80015ba:	4a09      	ldr	r2, [pc, #36]	; (80015e0 <SystemInit+0x68>)
+ 80015bc:	f423 2380 	bic.w	r3, r3, #262144	; 0x40000
+ 80015c0:	6013      	str	r3, [r2, #0]
 
   /* Disable all interrupts */
   RCC->CIER = 0x00000000U;
- 80015b6:	4b07      	ldr	r3, [pc, #28]	; (80015d4 <SystemInit+0x68>)
- 80015b8:	2200      	movs	r2, #0
- 80015ba:	619a      	str	r2, [r3, #24]
+ 80015c2:	4b07      	ldr	r3, [pc, #28]	; (80015e0 <SystemInit+0x68>)
+ 80015c4:	2200      	movs	r2, #0
+ 80015c6:	619a      	str	r2, [r3, #24]
 
   /* Configure the Vector Table location add offset address ------------------*/
 #ifdef VECT_TAB_SRAM
   SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
 #else
   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
- 80015bc:	4b04      	ldr	r3, [pc, #16]	; (80015d0 <SystemInit+0x64>)
- 80015be:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
- 80015c2:	609a      	str	r2, [r3, #8]
+ 80015c8:	4b04      	ldr	r3, [pc, #16]	; (80015dc <SystemInit+0x64>)
+ 80015ca:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
+ 80015ce:	609a      	str	r2, [r3, #8]
 #endif
 }
- 80015c4:	bf00      	nop
- 80015c6:	46bd      	mov	sp, r7
- 80015c8:	f85d 7b04 	ldr.w	r7, [sp], #4
- 80015cc:	4770      	bx	lr
- 80015ce:	bf00      	nop
- 80015d0:	e000ed00 	.word	0xe000ed00
- 80015d4:	40021000 	.word	0x40021000
+ 80015d0:	bf00      	nop
+ 80015d2:	46bd      	mov	sp, r7
+ 80015d4:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80015d8:	4770      	bx	lr
+ 80015da:	bf00      	nop
+ 80015dc:	e000ed00 	.word	0xe000ed00
+ 80015e0:	40021000 	.word	0x40021000
 
-080015d8 <Reset_Handler>:
+080015e4 <Reset_Handler>:
 
     .section	.text.Reset_Handler
 	.weak	Reset_Handler
 	.type	Reset_Handler, %function
 Reset_Handler:
   ldr   sp, =_estack    /* Set stack pointer */
- 80015d8:	f8df d034 	ldr.w	sp, [pc, #52]	; 8001610 <LoopForever+0x2>
+ 80015e4:	f8df d034 	ldr.w	sp, [pc, #52]	; 800161c <LoopForever+0x2>
 
 /* Call the clock system initialization function.*/
     bl  SystemInit
- 80015dc:	f7ff ffc6 	bl	800156c <SystemInit>
+ 80015e8:	f7ff ffc6 	bl	8001578 <SystemInit>
 
 /* Copy the data segment initializers from flash to SRAM */
   movs	r1, #0
- 80015e0:	2100      	movs	r1, #0
+ 80015ec:	2100      	movs	r1, #0
   b	LoopCopyDataInit
- 80015e2:	e003      	b.n	80015ec <LoopCopyDataInit>
+ 80015ee:	e003      	b.n	80015f8 <LoopCopyDataInit>
 
-080015e4 <CopyDataInit>:
+080015f0 <CopyDataInit>:
 
 CopyDataInit:
 	ldr	r3, =_sidata
- 80015e4:	4b0b      	ldr	r3, [pc, #44]	; (8001614 <LoopForever+0x6>)
+ 80015f0:	4b0b      	ldr	r3, [pc, #44]	; (8001620 <LoopForever+0x6>)
 	ldr	r3, [r3, r1]
- 80015e6:	585b      	ldr	r3, [r3, r1]
+ 80015f2:	585b      	ldr	r3, [r3, r1]
 	str	r3, [r0, r1]
- 80015e8:	5043      	str	r3, [r0, r1]
+ 80015f4:	5043      	str	r3, [r0, r1]
 	adds	r1, r1, #4
- 80015ea:	3104      	adds	r1, #4
+ 80015f6:	3104      	adds	r1, #4
 
-080015ec <LoopCopyDataInit>:
+080015f8 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
 	ldr	r0, =_sdata
- 80015ec:	480a      	ldr	r0, [pc, #40]	; (8001618 <LoopForever+0xa>)
+ 80015f8:	480a      	ldr	r0, [pc, #40]	; (8001624 <LoopForever+0xa>)
 	ldr	r3, =_edata
- 80015ee:	4b0b      	ldr	r3, [pc, #44]	; (800161c <LoopForever+0xe>)
+ 80015fa:	4b0b      	ldr	r3, [pc, #44]	; (8001628 <LoopForever+0xe>)
 	adds	r2, r0, r1
- 80015f0:	1842      	adds	r2, r0, r1
+ 80015fc:	1842      	adds	r2, r0, r1
 	cmp	r2, r3
- 80015f2:	429a      	cmp	r2, r3
+ 80015fe:	429a      	cmp	r2, r3
 	bcc	CopyDataInit
- 80015f4:	d3f6      	bcc.n	80015e4 <CopyDataInit>
+ 8001600:	d3f6      	bcc.n	80015f0 <CopyDataInit>
 	ldr	r2, =_sbss
- 80015f6:	4a0a      	ldr	r2, [pc, #40]	; (8001620 <LoopForever+0x12>)
+ 8001602:	4a0a      	ldr	r2, [pc, #40]	; (800162c <LoopForever+0x12>)
 	b	LoopFillZerobss
- 80015f8:	e002      	b.n	8001600 <LoopFillZerobss>
+ 8001604:	e002      	b.n	800160c <LoopFillZerobss>
 
-080015fa <FillZerobss>:
+08001606 <FillZerobss>:
 /* Zero fill the bss segment. */
 FillZerobss:
 	movs	r3, #0
- 80015fa:	2300      	movs	r3, #0
+ 8001606:	2300      	movs	r3, #0
 	str	r3, [r2], #4
- 80015fc:	f842 3b04 	str.w	r3, [r2], #4
+ 8001608:	f842 3b04 	str.w	r3, [r2], #4
 
-08001600 <LoopFillZerobss>:
+0800160c <LoopFillZerobss>:
 
 LoopFillZerobss:
 	ldr	r3, = _ebss
- 8001600:	4b08      	ldr	r3, [pc, #32]	; (8001624 <LoopForever+0x16>)
+ 800160c:	4b08      	ldr	r3, [pc, #32]	; (8001630 <LoopForever+0x16>)
 	cmp	r2, r3
- 8001602:	429a      	cmp	r2, r3
+ 800160e:	429a      	cmp	r2, r3
 	bcc	FillZerobss
- 8001604:	d3f9      	bcc.n	80015fa <FillZerobss>
+ 8001610:	d3f9      	bcc.n	8001606 <FillZerobss>
 
 /* Call static constructors */
     bl __libc_init_array
- 8001606:	f000 f821 	bl	800164c <__libc_init_array>
+ 8001612:	f000 f821 	bl	8001658 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
- 800160a:	f7ff fc99 	bl	8000f40 <main>
+ 8001616:	f7ff fc93 	bl	8000f40 <main>
 
-0800160e <LoopForever>:
+0800161a <LoopForever>:
 
 LoopForever:
     b LoopForever
- 800160e:	e7fe      	b.n	800160e <LoopForever>
+ 800161a:	e7fe      	b.n	800161a <LoopForever>
   ldr   sp, =_estack    /* Set stack pointer */
- 8001610:	20018000 	.word	0x20018000
+ 800161c:	20018000 	.word	0x20018000
 	ldr	r3, =_sidata
- 8001614:	080016b4 	.word	0x080016b4
+ 8001620:	080016c0 	.word	0x080016c0
 	ldr	r0, =_sdata
- 8001618:	20000000 	.word	0x20000000
+ 8001624:	20000000 	.word	0x20000000
 	ldr	r3, =_edata
- 800161c:	20000008 	.word	0x20000008
+ 8001628:	20000008 	.word	0x20000008
 	ldr	r2, =_sbss
- 8001620:	20000008 	.word	0x20000008
+ 800162c:	20000008 	.word	0x20000008
 	ldr	r3, = _ebss
- 8001624:	20000038 	.word	0x20000038
+ 8001630:	20000038 	.word	0x20000038
 
-08001628 <ADC1_2_IRQHandler>:
+08001634 <ADC1_2_IRQHandler>:
  * @retval : None
 */
     .section	.text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
 	b	Infinite_Loop
- 8001628:	e7fe      	b.n	8001628 <ADC1_2_IRQHandler>
+ 8001634:	e7fe      	b.n	8001634 <ADC1_2_IRQHandler>
 	...
 
-0800162c <LL_SetSystemCoreClock>:
+08001638 <LL_SetSystemCoreClock>:
   * @note   Variable can be calculated also through SystemCoreClockUpdate function.
   * @param  HCLKFrequency HCLK frequency in Hz (can be calculated thanks to RCC helper macro)
   * @retval None
   */
 void LL_SetSystemCoreClock(uint32_t HCLKFrequency)
 {
- 800162c:	b480      	push	{r7}
- 800162e:	b083      	sub	sp, #12
- 8001630:	af00      	add	r7, sp, #0
- 8001632:	6078      	str	r0, [r7, #4]
+ 8001638:	b480      	push	{r7}
+ 800163a:	b083      	sub	sp, #12
+ 800163c:	af00      	add	r7, sp, #0
+ 800163e:	6078      	str	r0, [r7, #4]
   /* HCLK clock frequency */
   SystemCoreClock = HCLKFrequency;
- 8001634:	4a04      	ldr	r2, [pc, #16]	; (8001648 <LL_SetSystemCoreClock+0x1c>)
- 8001636:	687b      	ldr	r3, [r7, #4]
- 8001638:	6013      	str	r3, [r2, #0]
+ 8001640:	4a04      	ldr	r2, [pc, #16]	; (8001654 <LL_SetSystemCoreClock+0x1c>)
+ 8001642:	687b      	ldr	r3, [r7, #4]
+ 8001644:	6013      	str	r3, [r2, #0]
 }
- 800163a:	bf00      	nop
- 800163c:	370c      	adds	r7, #12
- 800163e:	46bd      	mov	sp, r7
- 8001640:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8001644:	4770      	bx	lr
  8001646:	bf00      	nop
- 8001648:	20000004 	.word	0x20000004
+ 8001648:	370c      	adds	r7, #12
+ 800164a:	46bd      	mov	sp, r7
+ 800164c:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8001650:	4770      	bx	lr
+ 8001652:	bf00      	nop
+ 8001654:	20000004 	.word	0x20000004
 
-0800164c <__libc_init_array>:
- 800164c:	b570      	push	{r4, r5, r6, lr}
- 800164e:	4d0d      	ldr	r5, [pc, #52]	; (8001684 <__libc_init_array+0x38>)
- 8001650:	4c0d      	ldr	r4, [pc, #52]	; (8001688 <__libc_init_array+0x3c>)
- 8001652:	1b64      	subs	r4, r4, r5
- 8001654:	10a4      	asrs	r4, r4, #2
- 8001656:	2600      	movs	r6, #0
- 8001658:	42a6      	cmp	r6, r4
- 800165a:	d109      	bne.n	8001670 <__libc_init_array+0x24>
- 800165c:	4d0b      	ldr	r5, [pc, #44]	; (800168c <__libc_init_array+0x40>)
- 800165e:	4c0c      	ldr	r4, [pc, #48]	; (8001690 <__libc_init_array+0x44>)
- 8001660:	f000 f818 	bl	8001694 <_init>
- 8001664:	1b64      	subs	r4, r4, r5
- 8001666:	10a4      	asrs	r4, r4, #2
- 8001668:	2600      	movs	r6, #0
- 800166a:	42a6      	cmp	r6, r4
- 800166c:	d105      	bne.n	800167a <__libc_init_array+0x2e>
- 800166e:	bd70      	pop	{r4, r5, r6, pc}
- 8001670:	f855 3b04 	ldr.w	r3, [r5], #4
- 8001674:	4798      	blx	r3
- 8001676:	3601      	adds	r6, #1
- 8001678:	e7ee      	b.n	8001658 <__libc_init_array+0xc>
- 800167a:	f855 3b04 	ldr.w	r3, [r5], #4
- 800167e:	4798      	blx	r3
- 8001680:	3601      	adds	r6, #1
- 8001682:	e7f2      	b.n	800166a <__libc_init_array+0x1e>
- 8001684:	080016ac 	.word	0x080016ac
- 8001688:	080016ac 	.word	0x080016ac
- 800168c:	080016ac 	.word	0x080016ac
- 8001690:	080016b0 	.word	0x080016b0
+08001658 <__libc_init_array>:
+ 8001658:	b570      	push	{r4, r5, r6, lr}
+ 800165a:	4d0d      	ldr	r5, [pc, #52]	; (8001690 <__libc_init_array+0x38>)
+ 800165c:	4c0d      	ldr	r4, [pc, #52]	; (8001694 <__libc_init_array+0x3c>)
+ 800165e:	1b64      	subs	r4, r4, r5
+ 8001660:	10a4      	asrs	r4, r4, #2
+ 8001662:	2600      	movs	r6, #0
+ 8001664:	42a6      	cmp	r6, r4
+ 8001666:	d109      	bne.n	800167c <__libc_init_array+0x24>
+ 8001668:	4d0b      	ldr	r5, [pc, #44]	; (8001698 <__libc_init_array+0x40>)
+ 800166a:	4c0c      	ldr	r4, [pc, #48]	; (800169c <__libc_init_array+0x44>)
+ 800166c:	f000 f818 	bl	80016a0 <_init>
+ 8001670:	1b64      	subs	r4, r4, r5
+ 8001672:	10a4      	asrs	r4, r4, #2
+ 8001674:	2600      	movs	r6, #0
+ 8001676:	42a6      	cmp	r6, r4
+ 8001678:	d105      	bne.n	8001686 <__libc_init_array+0x2e>
+ 800167a:	bd70      	pop	{r4, r5, r6, pc}
+ 800167c:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8001680:	4798      	blx	r3
+ 8001682:	3601      	adds	r6, #1
+ 8001684:	e7ee      	b.n	8001664 <__libc_init_array+0xc>
+ 8001686:	f855 3b04 	ldr.w	r3, [r5], #4
+ 800168a:	4798      	blx	r3
+ 800168c:	3601      	adds	r6, #1
+ 800168e:	e7f2      	b.n	8001676 <__libc_init_array+0x1e>
+ 8001690:	080016b8 	.word	0x080016b8
+ 8001694:	080016b8 	.word	0x080016b8
+ 8001698:	080016b8 	.word	0x080016b8
+ 800169c:	080016bc 	.word	0x080016bc
 
-08001694 <_init>:
- 8001694:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8001696:	bf00      	nop
- 8001698:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800169a:	bc08      	pop	{r3}
- 800169c:	469e      	mov	lr, r3
- 800169e:	4770      	bx	lr
-
-080016a0 <_fini>:
+080016a0 <_init>:
  80016a0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
  80016a2:	bf00      	nop
  80016a4:	bcf8      	pop	{r3, r4, r5, r6, r7}
  80016a6:	bc08      	pop	{r3}
  80016a8:	469e      	mov	lr, r3
  80016aa:	4770      	bx	lr
+
+080016ac <_fini>:
+ 80016ac:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80016ae:	bf00      	nop
+ 80016b0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 80016b2:	bc08      	pop	{r3}
+ 80016b4:	469e      	mov	lr, r3
+ 80016b6:	4770      	bx	lr

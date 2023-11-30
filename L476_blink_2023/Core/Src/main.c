@@ -55,7 +55,7 @@ int main(void) {
 	// Initialize expe with the value from the backup register
 	expe = LL_RTC_BAK_GetRegister(RTC, LL_RTC_BKP_DR0);
 	//8 experiences au total => on reset expe une fois arrive a 8
-	if (expe > 8){
+	if (expe == 9){
 		expe=1;
 	}
 	//expe = 6;

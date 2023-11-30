@@ -178,7 +178,8 @@ void RTC_Init_ColdStart(void)
     while (LL_RCC_LSE_IsReady() != 1)
     {
     }
-
+    LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
+    LL_RCC_EnableRTC();
     // Configure RTC prescalers
     LL_RTC_DisableWriteProtection(RTC);
     LL_RTC_SetAsynchPrescaler(RTC, 0x7F);
@@ -188,18 +189,17 @@ void RTC_Init_ColdStart(void)
     // Reset BKP_DR0 to a known initial value (1 in this case)
     LL_RTC_BAK_SetRegister(RTC, LL_RTC_BKP_DR0, 1);
 
-    LL_RCC_EnableRTC();
+
 }
 
 void RTC_Init_HotStart(void){
+	LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSE);
+	LL_RCC_EnableRTC();
     // Configure RTC prescalers
     LL_RTC_DisableWriteProtection(RTC);
     LL_RTC_SetAsynchPrescaler(RTC, 0x7F);
     LL_RTC_SetSynchPrescaler(RTC, 0xFF);
     LL_RTC_EnableWriteProtection(RTC);
-
-
-    LL_RCC_EnableRTC();
 }
 void SystemClock_Config_exp5(void)
 {
@@ -219,7 +219,10 @@ void SystemClock_Config_exp5(void)
 	  LL_RCC_MSI_SetRange(LL_RCC_MSIRANGE_9);
 	  LL_RCC_MSI_SetCalibTrimming(0);
 	  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_MSI);
+	  while(LL_RCC_GetSysClkSource()!= LL_RCC_SYS_CLKSOURCE_STATUS_MSI)
+	  {
 
+	  }
 	  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
 	  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
 	  LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);

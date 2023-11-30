@@ -34,5 +34,5 @@ clock.c:83:6:SystemClock_Config_exp2	3
 clock.c:109:6:SystemClock_Config_exp2_blue	4
 clock.c:146:6:SystemClock_Config_exp3	3
 clock.c:172:6:RTC_Init_ColdStart	2
-clock.c:194:6:RTC_Init_HotStart	1
-clock.c:204:6:SystemClock_Config_exp5	3
+clock.c:195:6:RTC_Init_HotStart	1
+clock.c:204:6:SystemClock_Config_exp5	4
